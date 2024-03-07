@@ -1,0 +1,30 @@
+$gunmetal-color: #082c38;
+$tan-color: #ccab8e;
+$antique-color: #fdebd8;
+
+.navbar {
+  background-color: $tan-color;
+  color: $antique-color;
+}
+
+.nav-link.active {
+  color: $gunmetal-color;
+}
+
+.nav-link {
+  color: $antique-color;
+}
+
+.btn {
+  border-color: $antique-color;
+  color: $antique-color;
+}
+
+.navbar-toggler {
+  background-color: $antique-color;
+}
+
+.container-fluid {
+  display: flex;
+  justify-content: space-between;
+}
