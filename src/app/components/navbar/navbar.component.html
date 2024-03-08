@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg fixed-top">
   <div class="container-fluid">
     <div>
       <img
@@ -22,19 +22,45 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a
+              class="nav-link active"
+              [routerLink]="['/']"
+              routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
+              >Home</a
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Login</a>
+            <a
+              class="nav-link"
+              [routerLink]="['/login']"
+              routerLinkActive="active"
+              >Login</a
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Register</a>
+            <a
+              class="nav-link"
+              [routerLink]="['/signup']"
+              routerLinkActive="active"
+              >Sign-up</a
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">UserProfile</a>
+            <a
+              class="nav-link"
+              [routerLink]="['/userprofile']"
+              routerLinkActive="active"
+              >UserProfile</a
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">BookDetails</a>
+            <a
+              class="nav-link"
+              [routerLink]="['/bookdetails']"
+              routerLinkActive="active"
+              >BookDetails</a
+            >
           </li>
         </ul>
         <form class="d-flex" role="search">
