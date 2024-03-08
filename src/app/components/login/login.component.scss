@@ -65,6 +65,7 @@ $antique-color: #fdebd8;
 
     @media (max-width: 980px) {
       width: 100%;
+      margin: auto;
     }
 
     h5 {
@@ -79,15 +80,10 @@ $antique-color: #fdebd8;
       color: $antique-color;
     }
 
-    .inputs {
-      margin-top: 4rem;
-      overflow: hidden;
-    }
-
-    input {
+    .inputs input {
       width: 100%;
       padding: 10px;
-      margin-top: 25px;
+      margin-top: 15px;
       font-size: 16px;
       border: none;
       outline: none;
