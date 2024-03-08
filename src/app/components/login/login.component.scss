@@ -61,6 +61,7 @@ $antique-color: #fdebd8;
   .right {
     padding: 40px;
     overflow: hidden;
+    max-width: 400px;
 
     @media (max-width: 980px) {
       width: 100%;
@@ -68,7 +69,7 @@ $antique-color: #fdebd8;
 
     h5 {
       font-size: calc(1.5rem + 3vw);
-      line-height: 0;
+      line-height: 1;
       color: $gunmetal-color;
       margin-top: 2rem;
     }
@@ -106,47 +107,4 @@ $antique-color: #fdebd8;
       background-color: $gunmetal-color;
     }
   }
-}
-
-label {
-  display: block;
-  position: relative;
-  margin-left: 30px;
-}
-label::before {
-  content: " \f00c";
-  position: absolute;
-  font-family: FontAwesome;
-  background: transparent;
-
-  border: 3px solid #70f570;
-  border-radius: 4px;
-  color: transparent;
-  left: -30px;
-
-  transition: all 0.2s linear;
-}
-
-label:hover::before {
-  font-family: FontAwesome;
-  content: " \f00c";
-  color: #fff;
-  cursor: pointer;
-  background: #70f570;
-}
-
-label:hover::before .text-checkbox {
-  background: #70f570;
-}
-// label span.text-checkbox:hover{background: #70F570;}
-
-label span.text-checkbox {
-  display: inline-block;
-  height: auto;
-  position: relative;
-  cursor: pointer;
-  transition: all 0.2s linear;
-}
-label input[type="checkbox"] {
-  display: none;
 }
