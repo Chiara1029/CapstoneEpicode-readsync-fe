@@ -21,24 +21,24 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="isLoggedIn">
             <a
               class="nav-link active"
-              [routerLink]="['/']"
+              [routerLink]="['/home']"
               routerLinkActive="active"
-              [routerLinkActiveOptions]="{ exact: true }"
               >Home</a
             >
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="!isLoggedIn">
             <a
               class="nav-link"
-              [routerLink]="['/login']"
+              [routerLink]="['/']"
               routerLinkActive="active"
+              [routerLinkActiveOptions]="{ exact: true }"
               >Login</a
             >
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="!isLoggedIn">
             <a
               class="nav-link"
               [routerLink]="['/signup']"
@@ -46,7 +46,7 @@
               >Sign-up</a
             >
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="isLoggedIn">
             <a
               class="nav-link"
               [routerLink]="['/userprofile']"
@@ -54,7 +54,7 @@
               >UserProfile</a
             >
           </li>
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="isLoggedIn">
             <a
               class="nav-link"
               [routerLink]="['/bookdetails']"
@@ -62,8 +62,13 @@
               >BookDetails</a
             >
           </li>
+          <li class="nav-item" *ngIf="isLoggedIn">
+            <button type="button" class="btn logout" (click)="logout()">
+              Logout
+            </button>
+          </li>
         </ul>
-        <form class="d-flex" role="search">
+        <!-- <form class="d-flex" role="search">
           <input
             class="form-control me-2"
             type="search"
@@ -71,7 +76,7 @@
             aria-label="Search"
           />
           <button class="btn" type="submit">Search</button>
-        </form>
+        </form> -->
       </div>
     </div>
   </div>

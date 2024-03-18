@@ -8,11 +8,11 @@ import { BookDetailsComponent } from './components/book-details/book-details.com
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'home',
     component: HomeComponent,
   },
   {
-    path: 'login',
+    path: '',
     component: LoginComponent,
   },
   {
