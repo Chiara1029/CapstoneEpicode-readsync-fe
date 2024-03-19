@@ -1,5 +1,90 @@
-<div *ngFor="let book of books">
-  <h2>{{ book.title }}</h2>
-  <p>Author: {{ book.author }}</p>
-  <img src="{{ book.cover }}" alt="" />
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div
+        id="carouselExampleIndicators"
+        class="carousel slide"
+        data-bs-ride="carousel"
+      >
+        <div class="carousel-inner">
+          <div
+            *ngFor="let book of books; let i = index"
+            class="carousel-item"
+            [ngClass]="{ active: i === 0 }"
+          >
+            <div class="card">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img
+                    [src]="book.cover"
+                    class="card-img-top"
+                    alt="book cover"
+                  />
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ book.title }}</h5>
+                    <p class="card-text">Author: {{ book.author }}</p>
+                    <p class="card-text">Genre: {{ book.genre }}</p>
+                    <button class="btn btn-details">Details</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="container">
+  <div *ngFor="let book of books">
+    <div class="card mb-3">
+      <div class="row g-0">
+        <div class="col-md-4 imgcontainer">
+          <img
+            src="{{ book.cover }}"
+            class="cover rounded-start"
+            alt="book cover"
+          />
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{ book.title }}</h5>
+            <p class="card-text">Plot: {{ book.plot }}</p>
+            <div class="d-flex">
+              <p class="card-text">
+                <small class="text-muted me-3">Author: {{ book.author }}</small>
+              </p>
+              <p class="card-text">
+                <small class="text-muted">Genre: {{ book.genre }}</small>
+              </p>
+            </div>
+            <button class="btn" routerLink="/books/{{ book.isbnCode }}">
+              Details
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

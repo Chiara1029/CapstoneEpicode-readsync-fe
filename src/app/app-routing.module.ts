@@ -24,7 +24,7 @@ const routes: Routes = [
     component: UserComponent,
   },
   {
-    path: 'bookdetails',
+    path: 'books/:isbnCode',
     component: BookDetailsComponent,
   },
 ];

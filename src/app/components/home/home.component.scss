@@ -1,0 +1,28 @@
+$gunmetal-color: #082c38;
+$tan-color: #ccab8e;
+$antique-color: #fdebd8;
+
+.card {
+  max-width: 850px;
+  height: 250px;
+  margin-inline: auto;
+  background-color: $antique-color;
+  border-color: $tan-color;
+  color: $gunmetal-color;
+  overflow: hidden;
+
+  .imgcontainer {
+    height: 100%;
+
+    .cover {
+      height: 100%;
+      width: auto;
+      object-fit: contain;
+    }
+  }
+}
+
+.btn {
+  background-color: $gunmetal-color;
+  color: $antique-color;
+}
