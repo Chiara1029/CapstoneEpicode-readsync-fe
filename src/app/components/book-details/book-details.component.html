@@ -1,19 +1,71 @@
-<div *ngIf="book">
-  <img [src]="book.cover" alt="Book Cover" />
-  <h1>{{ book.title }}</h1>
-  <h2>by {{ book.author }}</h2>
-  <p>{{ book.plot }}</p>
-  <p>ISBN: {{ book.isbnCode }}</p>
+<div *ngIf="book" class="d-flex">
+  <div class="container">
+    <div class="row">
+      <div class="d-sm-flex col-sm-12 col-lg-3">
+        <img
+          [src]="book.cover"
+          alt="Book Cover"
+          class="justify-content-sm-center"
+        />
+      </div>
+      <div class="col-sm-12 col-lg-9">
+        <h2>{{ book.title }}</h2>
+        <h3>by {{ book.author }}</h3>
+        <p>{{ book.plot }}</p>
+        <p>ISBN: {{ book.isbnCode }}</p>
+        <p>Genre: {{ book.genre }}</p>
+        <select name="status" id="">
+          <option value="READ">Read</option>
+          <option value="TO_READ">To Read</option>
+          <option value="CURRENTLY_READING">Currently Reading</option>
+        </select>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div *ngIf="reviews.length > 0">
-  <h2>Reviews</h2>
-  <ul>
-    <li *ngFor="let review of reviews">
-      <p>{{ review.title }}</p>
-      <p>Rating: {{ review.body }}</p>
-      <p>User: {{ review.user.username }}</p>
-      <img src="{{ review.user.avatar }}" alt="" />
-    </li>
-  </ul>
+<div class="container mt-5">
+  <h2>Add a Review</h2>
+  <form (ngSubmit)="submitReview()">
+    <div class="form-group">
+      <label for="reviewTitle">Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="reviewTitle"
+        [(ngModel)]="newReview.title"
+        name="title"
+      />
+    </div>
+    <div class="form-group">
+      <label for="reviewBody">Body</label>
+      <textarea
+        class="form-control"
+        id="reviewBody"
+        [(ngModel)]="newReview.body"
+        name="body"
+      ></textarea>
+    </div>
+    <button type="submit" class="btn mt-2">Submit Review</button>
+  </form>
+</div>
+
+<div class="container mt-5">
+  <div *ngIf="reviews.length > 0">
+    <h2>Reviews</h2>
+    <div *ngFor="let review of reviews">
+      <div class="user d-flex align-items-center mt-2">
+        <img
+          src="{{ review.user.avatar }}"
+          alt="avatar"
+          class="rounded-circle avatar"
+        />
+        <h6 class="ms-2">{{ review.user.username }}</h6>
+      </div>
+      <div class="review">
+        <h6>{{ review.title }}</h6>
+        <p>Rating: {{ review.body }}</p>
+      </div>
+    </div>
+  </div>
 </div>
