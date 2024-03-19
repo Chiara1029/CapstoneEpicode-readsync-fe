@@ -1,1 +1,5 @@
-<p>home works!</p>
+<div *ngFor="let book of books">
+  <h2>{{ book.title }}</h2>
+  <p>Author: {{ book.author }}</p>
+  <img src="{{ book.cover }}" alt="" />
+</div>
