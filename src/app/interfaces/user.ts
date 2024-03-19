@@ -5,7 +5,7 @@ export interface User {
   email: string | null;
   password: string | null;
   avatar: string | null;
-  role: string | null;
+  userRole: string | null;
 }
 
 export interface UserResponse {
@@ -16,5 +16,5 @@ export interface UserResponse {
   email: string | null;
   password: string | null;
   avatar: string | null;
-  role: string | null;
+  userRole: string | null;
 }
