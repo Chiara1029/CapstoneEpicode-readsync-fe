@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map, switchMap } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  catchError,
+  map,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Route, Router } from '@angular/router';
 import { Loginresponse } from '../interfaces/loginresponse';
@@ -22,11 +29,15 @@ export class AuthService {
         password,
       })
       .pipe(
-        map((res: Loginresponse) => {
-          // localStorage.setItem('token', res.accessToken);
-          this.jwt = res.accessToken;
+        tap((res: Loginresponse) => {
+          localStorage.clear();
+          localStorage.setItem('token', res.token);
+          this.jwt = res.token;
           this.$isLoggedIn.next(true);
-          return res;
+        }),
+        catchError((error) => {
+          console.error('Login error:', error);
+          throw error;
         })
       );
   }
@@ -39,7 +50,7 @@ export class AuthService {
   }
 
   logout() {
-    // localStorage.removeItem('token');
+    localStorage.removeItem('token');
     this.jwt = '';
     this.$isLoggedIn.next(false);
   }

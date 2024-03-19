@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
       this.error = res;
     });
   }
+
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       email: ['', Validators.email],
@@ -42,15 +43,12 @@ export class LoginComponent implements OnInit {
     const password = this.loginForm.value.password;
 
     this.authSrv.login(email, password).subscribe({
-      next: (data) => {
-        // localStorage.setItem('token', data.accessToken);
-        data.accessToken;
+      next: () => {
         this.router.navigate(['/home']);
       },
       error: (err) => {
         console.error('Login error', err);
         this.errorMessage = err.error.message;
-        alert(this.errorMessage);
       },
     });
   }
