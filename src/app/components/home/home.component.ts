@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Book } from '../../interfaces/book';
+import { Book, UserBook } from '../../interfaces/book';
 import { BookService } from '../../services/book.service';
 import { HttpClient } from '@angular/common/http';
 import { User, UserResponse } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ export class HomeComponent implements OnInit {
   user!: UserResponse;
   isLoggedIn!: boolean;
   userRole: string = '';
+  currentlyReading!: Book[];
 
   constructor(
     private authSrv: AuthService,
@@ -58,6 +60,7 @@ export class HomeComponent implements OnInit {
       (response) => {
         this.userId = response.toString();
         this.fetchUserDetails();
+        this.getCurrentlyReadingBooks();
       },
       (error) => {
         console.error('Error fetching user id:', error);
@@ -98,5 +101,20 @@ export class HomeComponent implements OnInit {
           console.error('Error deleting this book:', error);
         }
       );
+  }
+
+  getCurrentlyReadingBooks() {
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    };
+    this.http
+      .get<UserBook[]>(
+        `http://localhost:3001/users/${this.userId}/currentlyReading`,
+        { headers }
+      )
+      .pipe(map((response) => response.map((userBook) => userBook.book)))
+      .subscribe((books) => {
+        this.currentlyReading = books;
+      });
   }
 }
