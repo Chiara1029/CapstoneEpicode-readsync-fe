@@ -1,28 +1,34 @@
-$gunmetal-color: #082c38;
-$tan-color: #ccab8e;
-$antique-color: #fdebd8;
-
 .card {
-  max-width: 850px;
-  height: 250px;
   margin-inline: auto;
-  background-color: $antique-color;
-  border-color: $tan-color;
-  color: $gunmetal-color;
+  background-color: var(--antique);
+  border-color: var(--tan);
+  color: var(--gunmetal);
   overflow: hidden;
 
   .imgcontainer {
-    height: 100%;
-
     .cover {
-      height: 100%;
-      width: auto;
+      width: 100%;
       object-fit: contain;
+      padding: 1.5em;
     }
   }
 }
 
 .btn {
-  background-color: $gunmetal-color;
-  color: $antique-color;
+  background-color: var(--gunmetal);
+  color: var(--antique);
+}
+
+.welcome {
+  color: var(--gunmetal);
+}
+
+.header .card img {
+  background-position: center;
+  object-fit: cover;
+  height: 250px;
+}
+
+.header {
+  margin-bottom: 2rem;
 }

@@ -1,27 +1,23 @@
-$gunmetal-color: #082c38;
-$tan-color: #ccab8e;
-$antique-color: #fdebd8;
-
 .navbar {
-  background-color: $tan-color;
-  color: $antique-color;
+  background-color: var(--tan);
+  color: var(--antique);
 }
 
 .nav-link.active {
-  color: $gunmetal-color;
+  color: var(--gunmetal);
 }
 
 .nav-link {
-  color: $antique-color;
+  color: var(--antique);
 }
 
 .btn {
-  border-color: $antique-color;
-  color: $antique-color;
+  border-color: var(--antique);
+  color: var(--antique);
 }
 
 .navbar-toggler {
-  background-color: $antique-color;
+  background-color: var(--antique);
 }
 
 .container-fluid {
@@ -30,5 +26,5 @@ $antique-color: #fdebd8;
 }
 
 .logout {
-  background-color: $gunmetal-color;
+  background-color: var(--gunmetal);
 }

@@ -1,7 +1,3 @@
-$gunmetal-color: #082c38;
-$tan-color: #ccab8e;
-$antique-color: #fdebd8;
-
 .main {
   width: 100%;
   height: 100%;
@@ -10,7 +6,7 @@ $antique-color: #fdebd8;
 .box-form {
   margin: 0 auto;
   width: 80%;
-  background-color: $tan-color;
+  background-color: var(--tan);
   border-radius: 10px;
   overflow: hidden;
 
@@ -33,7 +29,7 @@ $antique-color: #fdebd8;
   }
 
   .left {
-    color: $antique-color;
+    color: var(--antique);
     background-size: cover;
     background-repeat: no-repeat;
     background-image: url("https://images.unsplash.com/photo-1513185041617-8ab03f83d6c5?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
@@ -71,13 +67,13 @@ $antique-color: #fdebd8;
     h5 {
       font-size: calc(1.5rem + 3vw);
       line-height: 1;
-      color: $gunmetal-color;
+      color: var(--gunmetal);
       margin-top: 2rem;
     }
 
     p {
       font-size: 14px;
-      color: $antique-color;
+      color: var(--antique);
     }
 
     .inputs input {
@@ -87,7 +83,7 @@ $antique-color: #fdebd8;
       font-size: 16px;
       border: none;
       outline: none;
-      border-bottom: 2px solid $antique-color;
+      border-bottom: 2px solid var(--antique);
       border-radius: 10px;
     }
 
@@ -100,7 +96,7 @@ $antique-color: #fdebd8;
       border: 0;
       outline: 0;
       box-shadow: 0px 4px 20px 0px #082c38a6;
-      background-color: $gunmetal-color;
+      background-color: var(--gunmetal);
     }
   }
 }

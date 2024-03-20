@@ -1,31 +1,27 @@
-$gunmetal-color: #082c38;
-$tan-color: #ccab8e;
-$antique-color: #fdebd8;
-
 .container {
   box-shadow: 0px 4px 20px 0px #082c38a6;
   border-radius: 10px;
   padding: 2em;
-  background-color: $tan-color;
-  color: $gunmetal-color;
+  background-color: var(--tan);
+  color: var(--gunmetal);
 }
 
 select,
 option {
-  background-color: $gunmetal-color;
+  background-color: var(--gunmetal);
   padding: 0.5rem;
-  color: $antique-color;
+  color: var(--antique);
   border-radius: 10px;
 }
 
 .btn {
-  background-color: $gunmetal-color;
-  color: $antique-color;
+  background-color: var(--gunmetal);
+  color: var(--antique);
 }
 
 input,
 textarea {
-  background-color: $antique-color;
+  background-color: var(--antique);
 }
 
 .avatar {
@@ -33,15 +29,15 @@ textarea {
 }
 
 .user {
-  background-color: $gunmetal-color;
-  color: $tan-color;
+  background-color: var(--gunmetal);
+  color: var(--tan);
   padding: 0.5em;
   border-radius: 10px 10px 0 0;
 }
 
 .review {
-  background-color: $antique-color;
-  color: $gunmetal-color;
+  background-color: var(--antique);
+  color: var(--gunmetal);
   padding: 0.5em;
   border-radius: 0 0 10px 10px;
 }

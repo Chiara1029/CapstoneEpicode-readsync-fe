@@ -1,10 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
-$gunmetal-color: #082c38;
-$tan-color: #ccab8e;
-$antique-color: #fdebd8;
+:root {
+  --gunmetal: #082c38;
+  --tan: #ccab8e;
+  --antique: #fdebd8;
+}
 
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 body {
-  background-color: $antique-color;
+  background-color: var(--antique);
 }

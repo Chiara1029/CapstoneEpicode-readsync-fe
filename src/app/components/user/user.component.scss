@@ -1,0 +1,16 @@
+.userside {
+  background-color: var(--tan);
+  color: var(--gunmetal);
+  padding: 1.5em;
+}
+
+.container {
+  border: 1px solid var(--tan);
+  border-radius: 10px;
+}
+
+.avatar {
+  aspect-ratio: 1/1;
+  height: 100px;
+  object-fit: cover;
+}
