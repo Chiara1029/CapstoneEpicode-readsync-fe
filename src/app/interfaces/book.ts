@@ -7,3 +7,12 @@ export interface Book {
   genre: string;
   cover: string;
 }
+
+export interface UserBook {
+  id: number;
+  user: any;
+  book: Book;
+  startDate: string;
+  endDate: string;
+  bookStatus: string;
+}

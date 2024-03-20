@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-4 userside d-flex">
+    <div class="col-sm-12 col-md-4 userside d-flex">
       <div
         *ngIf="user"
         class="d-flex flex-column align-items-center justify-content-center w-100"
@@ -20,8 +20,33 @@
         <p>Email: {{ user.email }}</p>
       </div>
     </div>
-    <div class="col-8">
-      <p>Inserire le liste dell'utente</p>
+    <div class="col-sm-12 col-md-8">
+      <div *ngFor="let currentlyReading of currentlyReading" class="mt-2">
+        <h5>Currently Reading</h5>
+        <div class="bookshelf--frame">
+          <div class="book-wrapper">
+            <img src="{{ currentlyReading.cover }}" alt="cover" />
+          </div>
+        </div>
+      </div>
+
+      <div *ngFor="let toRead of toRead" class="mt-2">
+        <h5>To Read</h5>
+        <div class="bookshelf--frame">
+          <div class="book-wrapper">
+            <img src="{{ toRead.cover }}" alt="cover" />
+          </div>
+        </div>
+      </div>
+
+      <div *ngFor="let readBooks of readBooks" class="mt-2">
+        <h5>Read</h5>
+        <div class="bookshelf--frame">
+          <div class="book-wrapper">
+            <img src="{{ readBooks.cover }}" alt="cover" />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

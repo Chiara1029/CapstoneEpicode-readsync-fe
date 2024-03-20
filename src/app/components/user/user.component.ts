@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User, UserResponse } from 'src/app/interfaces/user';
+import { Book, UserBook } from 'src/app/interfaces/book';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-user',
@@ -10,6 +12,9 @@ import { User, UserResponse } from 'src/app/interfaces/user';
 export class UserComponent implements OnInit {
   userId!: string;
   user!: UserResponse;
+  currentlyReading!: Book[];
+  readBooks!: Book[];
+  toRead!: Book[];
 
   constructor(private http: HttpClient) {}
 
@@ -24,6 +29,9 @@ export class UserComponent implements OnInit {
       (response) => {
         this.userId = response.toString();
         this.fetchUserDetails();
+        this.getCurrentlyReadingBooks();
+        this.getReadBooks();
+        this.getToReadBooks();
       },
       (error) => {
         console.error('Error fetching user id:', error);
@@ -45,5 +53,48 @@ export class UserComponent implements OnInit {
           console.error('Error fetching user details:', error);
         }
       );
+  }
+
+  getCurrentlyReadingBooks() {
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    };
+    this.http
+      .get<UserBook[]>(
+        `http://localhost:3001/users/${this.userId}/currentlyReading`,
+        { headers }
+      )
+      .pipe(map((response) => response.map((userBook) => userBook.book)))
+      .subscribe((books) => {
+        this.currentlyReading = books;
+      });
+  }
+
+  getReadBooks() {
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    };
+    this.http
+      .get<UserBook[]>(`http://localhost:3001/users/${this.userId}/read`, {
+        headers,
+      })
+      .pipe(map((response) => response.map((userBook) => userBook.book)))
+      .subscribe((books) => {
+        this.readBooks = books;
+      });
+  }
+
+  getToReadBooks() {
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    };
+    this.http
+      .get<UserBook[]>(`http://localhost:3001/users/${this.userId}/toRead`, {
+        headers,
+      })
+      .pipe(map((response) => response.map((userBook) => userBook.book)))
+      .subscribe((books) => {
+        this.toRead = books;
+      });
   }
 }
