@@ -1,6 +1,27 @@
-<h4>Hello {{ user?.username }}!</h4>
-<h5>Here's your data:</h5>
-<p>{{ user?.name }}</p>
-<p>{{ user?.lastName }}</p>
-<p>{{ user?.email }}</p>
-<img src="{{ user?.avatar }}" alt="" />
+<div class="container">
+  <div class="row">
+    <div class="col-4 userside d-flex">
+      <div
+        *ngIf="user"
+        class="d-flex flex-column align-items-center justify-content-center w-100"
+      >
+        <h3 class="fw-light">
+          Hello, <span class="fw-bold">{{ user.username }}</span
+          >!
+        </h3>
+        <img
+          src="{{ user.avatar }}"
+          alt="avatar"
+          class="avatar rounded-circle my-3"
+        />
+        <h5>Here's your data:</h5>
+        <p>Name: {{ user.name }}</p>
+        <p>Last Name: {{ user.lastName }}</p>
+        <p>Email: {{ user.email }}</p>
+      </div>
+    </div>
+    <div class="col-8">
+      <p>Inserire le liste dell'utente</p>
+    </div>
+  </div>
+</div>
