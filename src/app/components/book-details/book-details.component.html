@@ -50,8 +50,8 @@
   </form>
 </div>
 
-<div class="container mt-5">
-  <div *ngIf="reviews.length > 0">
+<div *ngIf="reviews.length > 0" class="container mt-5">
+  <div>
     <h2>Reviews</h2>
     <div *ngFor="let review of reviews">
       <div class="user d-flex align-items-center mt-2">

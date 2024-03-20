@@ -1,1 +1,34 @@
-<p>create-book works!</p>
+<div class="main">
+  <div class="box-form">
+    <div class="left">
+      <div class="overlay">
+        <h3>Create a New Book</h3>
+        <p>Hi ADMIN! Spread the Verb and create a new book.</p>
+      </div>
+    </div>
+
+    <div class="right d-flex flex-column">
+      <h5>Create a Book</h5>
+
+      <form [formGroup]="createForm" (ngSubmit)="createBook()">
+        <div class="inputs">
+          <input type="text" placeholder="title" formControlName="title" />
+          <input type="text" placeholder="author" formControlName="author" />
+          <input
+            type="text"
+            placeholder="isbn code"
+            formControlName="isbnCode"
+          />
+          <input type="text" placeholder="plot" formControlName="plot" />
+          <input type="text" placeholder="genre" formControlName="genre" />
+          <input type="text" placeholder="cover url" formControlName="cover" />
+        </div>
+        <div *ngIf="error" class="error-message">{{ error }}</div>
+
+        <button type="submit" class="btn mt-3" [disabled]="createForm.invalid">
+          Create Book
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
