@@ -48,6 +48,13 @@
             <button class="btn" routerLink="/books/{{ book.isbnCode }}">
               Details
             </button>
+            <button
+              class="btn delete"
+              *ngIf="isLoggedIn && user && user.userRole === 'ADMIN'"
+              (click)="delete(book)"
+            >
+              Delete
+            </button>
           </div>
         </div>
       </div>
