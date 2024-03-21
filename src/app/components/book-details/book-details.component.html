@@ -24,7 +24,7 @@
   </div>
 </div>
 
-<div class="container mt-5">
+<div class="container mt-5" *ngIf="user && user.userRole === 'USER'">
   <h2>Add a Review</h2>
   <form (ngSubmit)="submitReview()">
     <div class="form-group">
@@ -64,7 +64,7 @@
       </div>
       <div class="review">
         <h6>{{ review.title }}</h6>
-        <p>Rating: {{ review.body }}</p>
+        <p>{{ review.body }}</p>
       </div>
     </div>
   </div>

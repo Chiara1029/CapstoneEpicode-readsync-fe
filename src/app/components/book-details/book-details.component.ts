@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Book } from '../../interfaces/book';
 import { Review, ReviewResponse } from 'src/app/interfaces/review';
+import { UserResponse } from 'src/app/interfaces/user';
 
 @Component({
   selector: 'app-book-detail',
@@ -13,7 +14,9 @@ export class BookDetailsComponent implements OnInit {
   book!: Book;
   reviews: Review[];
   newReview: any = {};
+  userRole: string = '';
   userId!: string;
+  user!: UserResponse;
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {
     this.reviews = [];
@@ -116,10 +119,28 @@ export class BookDetailsComponent implements OnInit {
     this.http.get<any>('http://localhost:3001/users/me', { headers }).subscribe(
       (response) => {
         this.userId = response.toString();
+        this.fetchUserDetails();
       },
       (error) => {
         console.error('Error fetching user id:', error);
       }
     );
+  }
+
+  fetchUserDetails() {
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    };
+    this.http
+      .get<any>(`http://localhost:3001/users/${this.userId}`, { headers })
+      .subscribe(
+        (response) => {
+          this.user = response;
+          this.userRole = response.userRole;
+        },
+        (error) => {
+          console.error('Error fetching user details:', error);
+        }
+      );
   }
 }
