@@ -67,3 +67,21 @@ $grad5: darken($darktan, 4);
     }
   }
 }
+
+.cover {
+  width: 40px;
+}
+
+.user {
+  background-color: var(--gunmetal);
+  color: var(--tan);
+  padding: 0.5em;
+  border-radius: 10px 10px 0 0;
+}
+
+.review {
+  background-color: var(--antique);
+  color: var(--gunmetal);
+  padding: 0.5em;
+  border-radius: 0 0 10px 10px;
+}

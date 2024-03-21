@@ -18,6 +18,10 @@
         <p>Name: {{ user.name }}</p>
         <p>Last Name: {{ user.lastName }}</p>
         <p>Email: {{ user.email }}</p>
+        <br />
+        <p>Currently Reading: {{ numCurrentlyReading }}</p>
+        <p>To Read: {{ numToRead }}</p>
+        <p>Read: {{ numReadBooks }}</p>
       </div>
     </div>
     <div class="col-sm-12 col-md-8">
@@ -46,6 +50,26 @@
             <img src="{{ readBooks.cover }}" alt="cover" />
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="reviews && reviews.length > 0" class="container mt-5">
+  <div>
+    <h2>Your Reviews</h2>
+    <div *ngFor="let review of reviews">
+      <div class="user d-flex align-items-center mt-2">
+        <img
+          src="{{ review.book.cover }}"
+          alt="avatar"
+          class="rounded-circle cover"
+        />
+        <h6 class="ms-2">{{ review.book.title }}</h6>
+      </div>
+      <div class="review">
+        <h6>{{ review.title }}</h6>
+        <p>{{ review.body }}</p>
       </div>
     </div>
   </div>

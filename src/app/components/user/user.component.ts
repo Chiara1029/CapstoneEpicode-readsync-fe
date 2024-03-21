@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { User, UserResponse } from 'src/app/interfaces/user';
 import { Book, UserBook } from 'src/app/interfaces/book';
 import { map } from 'rxjs';
+import { Review } from 'src/app/interfaces/review';
 
 @Component({
   selector: 'app-user',
@@ -15,6 +16,10 @@ export class UserComponent implements OnInit {
   currentlyReading!: Book[];
   readBooks!: Book[];
   toRead!: Book[];
+  reviews!: Review[];
+  numCurrentlyReading: number = 0;
+  numReadBooks: number = 0;
+  numToRead: number = 0;
 
   constructor(private http: HttpClient) {}
 
@@ -32,6 +37,7 @@ export class UserComponent implements OnInit {
         this.getCurrentlyReadingBooks();
         this.getReadBooks();
         this.getToReadBooks();
+        this.getUserReviews();
       },
       (error) => {
         console.error('Error fetching user id:', error);
@@ -67,6 +73,7 @@ export class UserComponent implements OnInit {
       .pipe(map((response) => response.map((userBook) => userBook.book)))
       .subscribe((books) => {
         this.currentlyReading = books;
+        this.numCurrentlyReading = books.length;
       });
   }
 
@@ -81,6 +88,7 @@ export class UserComponent implements OnInit {
       .pipe(map((response) => response.map((userBook) => userBook.book)))
       .subscribe((books) => {
         this.readBooks = books;
+        this.numReadBooks = books.length;
       });
   }
 
@@ -95,6 +103,25 @@ export class UserComponent implements OnInit {
       .pipe(map((response) => response.map((userBook) => userBook.book)))
       .subscribe((books) => {
         this.toRead = books;
+        this.numToRead = books.length;
       });
+  }
+
+  getUserReviews() {
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    };
+    this.http
+      .get<Review[]>(`http://localhost:3001/users/${this.userId}/reviews`, {
+        headers,
+      })
+      .subscribe(
+        (response) => {
+          this.reviews = response;
+        },
+        (error) => {
+          console.error('Error fetching user details:', error);
+        }
+      );
   }
 }
