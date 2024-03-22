@@ -25,7 +25,6 @@ export class HomeComponent implements OnInit {
     private http: HttpClient
   ) {
     this.authSrv.isLoggedIn.subscribe((res) => {
-      console.log(res);
       this.isLoggedIn = res;
     });
   }
@@ -34,7 +33,6 @@ export class HomeComponent implements OnInit {
     this.loadBooks();
     this.fetchUserId();
     this.authSrv.isLoggedIn.subscribe((res) => {
-      console.log(res);
       this.isLoggedIn = res;
       if (this.isLoggedIn) {
         this.fetchUserId();
@@ -48,7 +46,7 @@ export class HomeComponent implements OnInit {
         this.books = data.content;
       },
       (error) => {
-        console.log('Error fetching books:', error);
+        console.error('Error fetching books:', error);
       }
     );
   }
@@ -116,5 +114,15 @@ export class HomeComponent implements OnInit {
       .subscribe((books) => {
         this.currentlyReading = books;
       });
+  }
+
+  search(event: any) {
+    if (!event.target.value) {
+      this.loadBooks();
+    }
+    const searchTerm = event.target.value.toLowerCase();
+    this.books = this.books.filter((book) =>
+      book.title.toLowerCase().includes(searchTerm)
+    );
   }
 }

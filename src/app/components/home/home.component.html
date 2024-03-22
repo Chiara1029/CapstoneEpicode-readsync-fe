@@ -3,32 +3,65 @@
     <h2>Welcome {{ user.username }}</h2>
   </div>
 
-  <div class="header" *ngFor="let currentlyReading of currentlyReading">
+  <div class="header" *ngIf="currentlyReading">
     <div class="card">
-      <img src="{{ currentlyReading.cover }}" class="card-img" alt="cover" />
+      <img src="{{ currentlyReading[0].cover }}" class="card-img" alt="cover" />
       <div class="card-img-overlay">
         <h5 class="card-title">You're reading:</h5>
         <p class="card-text">
-          {{ currentlyReading.title }} by {{ currentlyReading.author }}
+          {{ currentlyReading[0].title }} by {{ currentlyReading[0].author }}
         </p>
-        <button class="btn">Details</button>
+        <button
+          class="btn"
+          routerLink="/books/{{ currentlyReading[0].isbnCode }}"
+        >
+          Details
+        </button>
       </div>
     </div>
   </div>
 </div>
 
 <div class="container">
-  <h3>See what's new...</h3>
+  <div class="row d-flex justify-content-between mb-2 search-bar">
+    <div class="col-9">
+      <h3>See what's new...</h3>
+    </div>
+    <div class="col-3 search">
+      <form class="d-flex mx-auto" role="search">
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search by title"
+          aria-label="Search"
+          (input)="search($event)"
+        />
+        <div class="svg-container d-flex align-items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-search"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+            />
+          </svg>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <div *ngFor="let book of books">
     <div class="card mb-3">
       <div class="row g-0">
-        <div class="col-md-4 imgcontainer">
-          <img
-            src="{{ book.cover }}"
-            class="cover rounded-start img-fluid"
-            alt="book cover"
-          />
-        </div>
+        <img
+          src="{{ book.cover }}"
+          class="cover rounded-start img-fluid col-md-2"
+          alt="book cover"
+        />
         <div class="col-md-8">
           <div class="card-body">
             <h5 class="card-title">{{ book.title }}</h5>

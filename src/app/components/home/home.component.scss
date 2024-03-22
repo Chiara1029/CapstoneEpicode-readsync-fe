@@ -1,16 +1,18 @@
+.container {
+  color: var(--gunmetal);
+}
+
 .card {
   margin-inline: auto;
   background-color: var(--antique);
   border-color: var(--tan);
   color: var(--gunmetal);
-  overflow: hidden;
 
-  .imgcontainer {
-    .cover {
-      width: 100%;
-      object-fit: contain;
-      padding: 1.5em;
-    }
+  .cover {
+    height: 100%;
+    max-height: 250px;
+    object-fit: contain;
+    padding: 1.5em;
   }
 }
 
@@ -36,4 +38,20 @@
 .delete {
   background-color: #500000;
   margin-left: 2em;
+}
+
+.search-bar {
+  background-color: var(--tan);
+  border-radius: 5px;
+  padding: 0.2rem;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+svg {
+  color: var(--gunmetal);
 }
