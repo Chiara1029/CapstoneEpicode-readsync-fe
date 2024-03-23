@@ -22,14 +22,12 @@ export class NavbarComponent {
     private http: HttpClient
   ) {
     this.authSrv.isLoggedIn.subscribe((res) => {
-      console.log(res);
       this.isLoggedIn = res;
     });
   }
 
   ngOnInit() {
     this.authSrv.isLoggedIn.subscribe((res) => {
-      console.log(res);
       this.isLoggedIn = res;
       if (this.isLoggedIn) {
         this.fetchUserId();

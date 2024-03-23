@@ -46,7 +46,10 @@
               >Sign-up</a
             >
           </li>
-          <li class="nav-item" *ngIf="isLoggedIn">
+          <li
+            class="nav-item"
+            *ngIf="isLoggedIn && user && user.userRole === 'USER'"
+          >
             <a
               class="nav-link"
               [routerLink]="['/userprofile']"

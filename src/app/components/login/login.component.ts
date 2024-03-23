@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
     private errorSrv: ErrorService
   ) {
     this.errorSrv.error.subscribe((res) => {
-      console.log(res);
       this.error = res;
     });
   }
@@ -48,6 +47,7 @@ export class LoginComponent implements OnInit {
       },
       error: (err) => {
         console.error('Login error', err);
+        alert(err.error.message);
         this.errorMessage = err.error.message;
       },
     });
