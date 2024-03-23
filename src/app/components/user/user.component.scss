@@ -9,10 +9,32 @@
   border-radius: 10px;
 }
 
+h3,
+span,
+h2 {
+  color: var(--gunmetal);
+}
+
 .avatar {
   aspect-ratio: 1/1;
   height: 100px;
   object-fit: cover;
+  transition: 0.2s;
+  position: relative;
+}
+.avatar-container {
+  position: relative;
+}
+.avatar-container:hover .hover {
+  position: absolute;
+}
+
+.bi-pencil-square {
+  bottom: 20%;
+  right: 10%;
+  color: var(--antique);
+  background-color: var(--gunmetal);
+  margin: 0.2em;
 }
 
 //bookshelf
@@ -25,6 +47,7 @@ $grad5: darken($darktan, 4);
 .bookshelf--frame {
   max-width: 100%;
   margin: 0 auto;
+  overflow-x: auto;
 }
 
 .bookshelf--frame {
@@ -49,7 +72,7 @@ $grad5: darken($darktan, 4);
   }
   .book-wrapper {
     display: inline-block;
-    width: 190px;
+    min-width: 190px;
     vertical-align: bottom;
     height: 230px;
     position: relative;
@@ -70,6 +93,8 @@ $grad5: darken($darktan, 4);
 
 .cover {
   width: 40px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
 }
 
 .user {
@@ -80,7 +105,7 @@ $grad5: darken($darktan, 4);
 }
 
 .review {
-  background-color: var(--antique);
+  background-color: var(--tan);
   color: var(--gunmetal);
   padding: 0.5em;
   border-radius: 0 0 10px 10px;

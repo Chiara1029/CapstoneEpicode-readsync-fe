@@ -9,45 +9,89 @@
           Hello, <span class="fw-bold">{{ user.username }}</span
           >!
         </h3>
-        <img
-          src="{{ user.avatar }}"
-          alt="avatar"
-          class="avatar rounded-circle my-3"
-        />
+        <div class="avatar-container rounded-circle">
+          <div
+            class="overlay w-100 h-100 position-absolute top-0 start-0"
+          ></div>
+          <img
+            src="{{ user.avatar }}"
+            alt="avatar"
+            class="avatar rounded-circle my-3"
+            (click)="triggerFileInput()"
+          />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-pencil-square position-absolute"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+            />
+            <path
+              fill-rule="evenodd"
+              d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"
+            />
+          </svg>
+
+          <input
+            type="file"
+            #fileInput
+            [ngStyle]="{ display: 'none' }"
+            (change)="onFileChange($event)"
+          />
+        </div>
         <h5>Here's your data:</h5>
         <p>Name: {{ user.name }}</p>
         <p>Last Name: {{ user.lastName }}</p>
         <p>Email: {{ user.email }}</p>
-        <br />
+        <hr />
         <p>Currently Reading: {{ numCurrentlyReading }}</p>
         <p>To Read: {{ numToRead }}</p>
         <p>Read: {{ numReadBooks }}</p>
       </div>
     </div>
     <div class="col-sm-12 col-md-8">
-      <div *ngFor="let currentlyReading of currentlyReading" class="mt-2">
+      <div class="mt-2" *ngIf="currentlyReading && currentlyReading.length > 0">
         <h5>Currently Reading</h5>
-        <div class="bookshelf--frame">
-          <div class="book-wrapper">
-            <img src="{{ currentlyReading.cover }}" alt="cover" />
+        <div class="bookshelf--frame d-flex flex-nowrap">
+          <div
+            class="book-wrapper"
+            *ngFor="let currentlyReading of currentlyReading"
+          >
+            <img
+              src="{{ currentlyReading.cover }}"
+              alt="cover"
+              routerLink="/books/{{ currentlyReading.isbnCode }}"
+            />
           </div>
         </div>
       </div>
 
-      <div *ngFor="let toRead of toRead" class="mt-2">
+      <div class="mt-2" *ngIf="toRead && toRead.length > 0">
         <h5>To Read</h5>
         <div class="bookshelf--frame">
-          <div class="book-wrapper">
-            <img src="{{ toRead.cover }}" alt="cover" />
+          <div class="book-wrapper" *ngFor="let toRead of toRead">
+            <img
+              src="{{ toRead.cover }}"
+              alt="cover"
+              routerLink="/books/{{ toRead.isbnCode }}"
+            />
           </div>
         </div>
       </div>
 
-      <div *ngFor="let readBooks of readBooks" class="mt-2">
+      <div class="mt-2" *ngIf="readBooks && readBooks.length > 0">
         <h5>Read</h5>
         <div class="bookshelf--frame">
-          <div class="book-wrapper">
-            <img src="{{ readBooks.cover }}" alt="cover" />
+          <div class="book-wrapper" *ngFor="let readBooks of readBooks">
+            <img
+              src="{{ readBooks.cover }}"
+              alt="cover"
+              routerLink="/books/{{ readBooks.isbnCode }}"
+            />
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User, UserResponse } from 'src/app/interfaces/user';
 import { Book, UserBook } from 'src/app/interfaces/book';
@@ -20,6 +20,8 @@ export class UserComponent implements OnInit {
   numCurrentlyReading: number = 0;
   numReadBooks: number = 0;
   numToRead: number = 0;
+  @ViewChild('fileInput') fileInput!: ElementRef;
+  hover!: boolean;
 
   constructor(private http: HttpClient) {}
 
@@ -123,5 +125,41 @@ export class UserComponent implements OnInit {
           console.error('Error fetching user details:', error);
         }
       );
+  }
+
+  triggerFileInput() {
+    this.fileInput.nativeElement.click();
+  }
+
+  uploadAvatar(file: File) {
+    const formData: FormData = new FormData();
+    formData.append('avatar', file, file.name);
+
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    };
+
+    this.http
+      .patch<User>(
+        `http://localhost:3001/users/${this.userId}/avatar`,
+        formData,
+        { headers }
+      )
+      .subscribe(
+        (response) => {
+          this.user.avatar = response.avatar;
+        },
+        (error) => {
+          console.error('Error uploading avatar:', error);
+        }
+      );
+  }
+
+  onFileChange(event: any) {
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      const file: File = fileList[0];
+      this.uploadAvatar(file);
+    }
   }
 }
