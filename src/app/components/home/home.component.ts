@@ -83,24 +83,6 @@ export class HomeComponent implements OnInit {
       );
   }
 
-  delete(book: any) {
-    const isbnCode = book.isbnCode;
-    const token = localStorage.getItem('token');
-    const headers = { Authorization: `Bearer ${token}` };
-
-    this.http
-      .delete<any>(`http://localhost:3001/books/${isbnCode}`, { headers })
-      .subscribe(
-        () => {
-          this.books = this.books.filter((i) => i.isbnCode !== isbnCode);
-          alert('The book has been successfully deleted.');
-        },
-        (error) => {
-          console.error('Error deleting this book:', error);
-        }
-      );
-  }
-
   getCurrentlyReadingBooks() {
     const headers = {
       Authorization: `Bearer ${localStorage.getItem('token')}`,

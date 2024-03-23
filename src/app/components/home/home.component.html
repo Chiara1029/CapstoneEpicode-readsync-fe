@@ -1,22 +1,64 @@
 <div class="container">
-  <div *ngIf="user && user.username" class="welcome">
+  <div
+    *ngIf="user && user.username && user.userRole === 'ADMIN'"
+    class="welcome mb-2"
+  >
     <h2>Welcome {{ user.username }}</h2>
   </div>
 
-  <div class="header" *ngIf="currentlyReading">
-    <div class="card">
+  <div class="header" *ngIf="user && user.userRole === 'USER'">
+    <div class="card" *ngIf="currentlyReading && currentlyReading.length > 0">
+      <div
+        class="background-wbook w-100 h-100 position-absolute top-0 start-0"
+      ></div>
       <img src="{{ currentlyReading[0].cover }}" class="card-img" alt="cover" />
+      <div class="card-img-overlay d-flex justify-content-between">
+        <div
+          class="ms-5 d-flex flex-column justify-content-center align-items-center"
+        >
+          <div *ngIf="user && user.username" class="welcome">
+            <h2>Welcome {{ user.username }}</h2>
+          </div>
+          <h5 class="card-title">You're reading:</h5>
+          <p class="card-text">
+            {{ currentlyReading[0].title }} by {{ currentlyReading[0].author }}
+          </p>
+          <div>
+            <button
+              class="btn"
+              routerLink="/books/{{ currentlyReading[0].isbnCode }}"
+            >
+              Details
+            </button>
+          </div>
+        </div>
+        <div>
+          <img
+            src="{{ currentlyReading[0].cover }}"
+            alt="cover"
+            class="me-4 mt-2"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="card overflow-hidden"
+      *ngIf="currentlyReading && currentlyReading.length === 0"
+    >
+      <div class="background w-100 h-100 position-absolute top-0 start-0"></div>
+      <img
+        src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/ae2fa3ca-0851-4f3c-b276-0c5b7412e428/dctrw9m-a57a86c1-01c7-4711-9ba7-231e33978898.png/v1/fit/w_828,h_690,q_70,strp/reading_by_snatti89_dctrw9m-414w-2x.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTAwMCIsInBhdGgiOiJcL2ZcL2FlMmZhM2NhLTA4NTEtNGYzYy1iMjc2LTBjNWI3NDEyZTQyOFwvZGN0cnc5bS1hNTdhODZjMS0wMWM3LTQ3MTEtOWJhNy0yMzFlMzM5Nzg4OTgucG5nIiwid2lkdGgiOiI8PTEyMDAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.gHRTPmO2SR1BtYxjdufJ2KH3vzNtpdePPEahGnjsCp0"
+        class="card-img card-opacity"
+        alt="cover"
+      />
       <div class="card-img-overlay">
+        <div *ngIf="user && user.username" class="welcome">
+          <h2>Welcome {{ user.username }}</h2>
+        </div>
         <h5 class="card-title">You're reading:</h5>
         <p class="card-text">
-          {{ currentlyReading[0].title }} by {{ currentlyReading[0].author }}
+          Start looking for your next bookish journey and see what's new
         </p>
-        <button
-          class="btn"
-          routerLink="/books/{{ currentlyReading[0].isbnCode }}"
-        >
-          Details
-        </button>
       </div>
     </div>
   </div>
@@ -76,13 +118,6 @@
             </div>
             <button class="btn" routerLink="/books/{{ book.isbnCode }}">
               Details
-            </button>
-            <button
-              class="btn delete"
-              *ngIf="isLoggedIn && user && user.userRole === 'ADMIN'"
-              (click)="delete(book)"
-            >
-              Delete
             </button>
           </div>
         </div>

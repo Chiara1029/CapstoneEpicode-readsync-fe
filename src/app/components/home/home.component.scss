@@ -16,6 +16,20 @@
   }
 }
 
+.background {
+  background: var(--antique);
+  background: linear-gradient(135deg, #fdebd8c0 0%, #fdebd83f 100%);
+}
+.background-wbook {
+  background: var(--antique);
+  background: linear-gradient(
+    135deg,
+    rgb(253 235 216 / 75%) 0%,
+    rgb(253 235 216 / 0%) 80%
+  );
+  backdrop-filter: blur(10px);
+}
+
 .btn {
   background-color: var(--gunmetal);
   color: var(--antique);
@@ -32,12 +46,7 @@
 }
 
 .header {
-  margin-bottom: 2rem;
-}
-
-.delete {
-  background-color: #500000;
-  margin-left: 2em;
+  margin-bottom: 3.5rem;
 }
 
 .search-bar {
