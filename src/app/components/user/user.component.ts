@@ -4,6 +4,7 @@ import { User, UserResponse } from 'src/app/interfaces/user';
 import { Book, UserBook } from 'src/app/interfaces/book';
 import { map } from 'rxjs';
 import { Review } from 'src/app/interfaces/review';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user',
@@ -23,7 +24,7 @@ export class UserComponent implements OnInit {
   @ViewChild('fileInput') fileInput!: ElementRef;
   hover!: boolean;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   ngOnInit(): void {
     this.fetchUserId();
@@ -160,6 +161,27 @@ export class UserComponent implements OnInit {
     if (fileList.length > 0) {
       const file: File = fileList[0];
       this.uploadAvatar(file);
+    }
+  }
+
+  delete(user: any) {
+    const userId = this.userId;
+    const token = localStorage.getItem('token');
+    const headers = { Authorization: `Bearer ${token}` };
+    const confirmed = confirm('Are you sure?');
+    if (confirmed) {
+      this.http
+        .delete<any>(`http://localhost:3001/users/${userId}`, { headers })
+        .subscribe(
+          () => {
+            console.log('The user has been successfully deleted.');
+            alert('The user has been successfully deleted.');
+            this.router.navigate(['']);
+          },
+          (error) => {
+            console.error('Error deleting this user:', error);
+          }
+        );
     }
   }
 }

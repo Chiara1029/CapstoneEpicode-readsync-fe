@@ -115,3 +115,10 @@ $grad5: darken($darktan, 4);
 .route-to {
   cursor: pointer;
 }
+
+.delete {
+  background-color: #500000;
+  margin-right: 2em;
+
+  color: var(--antique);
+}

@@ -57,6 +57,10 @@
         <p routerLink="/bookslist/read" class="route-to">
           Read: {{ numReadBooks }}
         </p>
+        <hr />
+        <button class="btn delete" (click)="delete(user)">
+          Delete Account
+        </button>
       </div>
     </div>
     <div class="col-sm-12 col-md-8">
