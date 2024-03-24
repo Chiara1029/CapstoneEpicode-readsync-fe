@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Book, UserBook } from '../../interfaces/book';
+import { Book, UserBook, UserBookResponse } from '../../interfaces/book';
 import { Review, ReviewResponse } from 'src/app/interfaces/review';
 import { UserResponse } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -23,6 +23,9 @@ export class BookDetailsComponent implements OnInit {
   userReviewExists: boolean = false;
   userBook: any = {};
   bookStatus: string = '';
+  userBooks!: UserBook[];
+
+  hasRewied: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,6 +34,7 @@ export class BookDetailsComponent implements OnInit {
     private router: Router
   ) {
     this.reviews = [];
+    this.userBooks = [];
     this.authSrv.isLoggedIn.subscribe((res) => {
       this.isLoggedIn = res;
     });
@@ -47,9 +51,25 @@ export class BookDetailsComponent implements OnInit {
       }
     });
     const userId = this.fetchUserId();
-    this.userReviewExists = this.reviews.some(
-      (review) => review.user.username === this.user.username
-    );
+    this.fetchUserBooks();
+  }
+
+  fetchUserBooks(page: number = 0, size: number = 10, sort: string = 'id') {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString())
+      .set('sort', sort);
+
+    this.http
+      .get<UserBookResponse>(`http://localhost:3001/userBooks`, {
+        headers,
+        params,
+      })
+      .subscribe((userBooksPage) => {
+        this.userBooks = userBooksPage.content;
+      });
   }
 
   getBookDetails(isbnCode: string): void {
@@ -91,6 +111,11 @@ export class BookDetailsComponent implements OnInit {
       .subscribe(
         (reviews) => {
           this.reviews = reviews.content;
+          if (this.user && this.user.username) {
+            this.hasRewied = this.reviews.some(
+              (review) => review.user.username === this.user.username
+            );
+          }
         },
         (error) => {
           console.error('Error fetching reviews:', error);
@@ -149,6 +174,9 @@ export class BookDetailsComponent implements OnInit {
         (response) => {
           this.user = response;
           this.userRole = response.userRole;
+          this.hasRewied = this.reviews.some(
+            (review) => review.user.username === this.user.username
+          );
         },
         (error) => {
           console.error('Error fetching user details:', error);
@@ -193,17 +221,41 @@ export class BookDetailsComponent implements OnInit {
       userId: this.userId,
       bookStatus: this.bookStatus,
     };
-    this.http
-      .post('http://localhost:3001/userBooks', userBookBody, { headers })
-      .subscribe(
-        (response) => {
-          console.log(response);
-          alert('The book has been added to your list!');
-        },
-        (error) => {
-          console.error('Error:', error);
-        }
-      );
+    const existingUserBook = this.userBooks.find(
+      (book) => book.book.id === this.book.id
+    );
+    console.log(existingUserBook?.id);
+    console.log(this.book.id);
+
+    if (existingUserBook) {
+      this.http
+        .put(
+          `http://localhost:3001/userBooks/${existingUserBook.id}`,
+          userBookBody,
+          { headers }
+        )
+        .subscribe(
+          () => {
+            console.log('The book has been successfully updated in your list.');
+            alert('The book has been successfully updated in your list.');
+          },
+          (error) => {
+            console.error('Error:', error);
+          }
+        );
+    } else {
+      this.http
+        .post('http://localhost:3001/userBooks', userBookBody, { headers })
+        .subscribe(
+          (response) => {
+            console.log(response);
+            alert('The book has been added to your list!');
+          },
+          (error) => {
+            console.error('Error:', error);
+          }
+        );
+    }
   }
 
   onSelectChange() {
