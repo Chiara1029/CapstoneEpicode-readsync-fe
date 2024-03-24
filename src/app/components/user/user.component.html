@@ -48,9 +48,15 @@
         <p>Last Name: {{ user.lastName }}</p>
         <p>Email: {{ user.email }}</p>
         <hr />
-        <p>Currently Reading: {{ numCurrentlyReading }}</p>
-        <p>To Read: {{ numToRead }}</p>
-        <p>Read: {{ numReadBooks }}</p>
+        <p routerLink="/bookslist/currentlyReading" class="route-to">
+          Currently Reading: {{ numCurrentlyReading }}
+        </p>
+        <p routerLink="/bookslist/toRead" class="route-to">
+          To Read: {{ numToRead }}
+        </p>
+        <p routerLink="/bookslist/read" class="route-to">
+          Read: {{ numReadBooks }}
+        </p>
       </div>
     </div>
     <div class="col-sm-12 col-md-8">
@@ -72,7 +78,7 @@
 
       <div class="mt-2" *ngIf="toRead && toRead.length > 0">
         <h5>To Read</h5>
-        <div class="bookshelf--frame">
+        <div class="bookshelf--frame d-flex flex-nowrap">
           <div class="book-wrapper" *ngFor="let toRead of toRead">
             <img
               src="{{ toRead.cover }}"
@@ -85,7 +91,7 @@
 
       <div class="mt-2" *ngIf="readBooks && readBooks.length > 0">
         <h5>Read</h5>
-        <div class="bookshelf--frame">
+        <div class="bookshelf--frame d-flex flex-nowrap">
           <div class="book-wrapper" *ngFor="let readBooks of readBooks">
             <img
               src="{{ readBooks.cover }}"

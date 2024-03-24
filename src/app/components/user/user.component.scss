@@ -2,6 +2,7 @@
   background-color: var(--tan);
   color: var(--gunmetal);
   padding: 1.5em;
+  border-radius: 10px 0 0 10px;
 }
 
 .container {
@@ -109,4 +110,8 @@ $grad5: darken($darktan, 4);
   color: var(--gunmetal);
   padding: 0.5em;
   border-radius: 0 0 10px 10px;
+}
+
+.route-to {
+  cursor: pointer;
 }

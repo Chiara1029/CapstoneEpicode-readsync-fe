@@ -1,0 +1,42 @@
+.container {
+  border-radius: 10px;
+  padding: 2em;
+  background-color: var(--tan);
+  color: var(--gunmetal);
+}
+
+.avatar {
+  width: 40px;
+  aspect-ratio: 1/1;
+}
+
+.book {
+  background-color: var(--gunmetal);
+  color: var(--tan);
+  padding: 0.5em;
+  border-radius: 10px 10px 0 0;
+}
+
+.details {
+  background-color: var(--antique);
+  color: var(--gunmetal);
+  padding: 0.5em;
+  border-radius: 0 0 10px 10px;
+}
+
+.search-bar {
+  background-color: var(--tan);
+  border-radius: 5px;
+  padding: 0.2rem;
+  margin-inline: 6.4em;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+svg {
+  color: var(--gunmetal);
+}

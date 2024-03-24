@@ -25,7 +25,7 @@ export class BookDetailsComponent implements OnInit {
   bookStatus: string = '';
   userBooks!: UserBook[];
 
-  hasRewied: boolean = false;
+  hasReviewed: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -112,7 +112,7 @@ export class BookDetailsComponent implements OnInit {
         (reviews) => {
           this.reviews = reviews.content;
           if (this.user && this.user.username) {
-            this.hasRewied = this.reviews.some(
+            this.hasReviewed = this.reviews.some(
               (review) => review.user.username === this.user.username
             );
           }
@@ -174,7 +174,7 @@ export class BookDetailsComponent implements OnInit {
         (response) => {
           this.user = response;
           this.userRole = response.userRole;
-          this.hasRewied = this.reviews.some(
+          this.hasReviewed = this.reviews.some(
             (review) => review.user.username === this.user.username
           );
         },
@@ -222,11 +222,8 @@ export class BookDetailsComponent implements OnInit {
       bookStatus: this.bookStatus,
     };
     const existingUserBook = this.userBooks.find(
-      (book) => book.book.id === this.book.id
+      (book) => book.book.id === this.book.id && book.user.id === this.user.id
     );
-    console.log(existingUserBook?.id);
-    console.log(this.book.id);
-
     if (existingUserBook && existingUserBook.user.id === this.user.id) {
       this.http
         .put(

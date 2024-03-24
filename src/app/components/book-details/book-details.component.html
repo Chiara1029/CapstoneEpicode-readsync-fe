@@ -42,7 +42,7 @@
 
 <div
   class="container mt-5"
-  *ngIf="user && user.userRole === 'USER' && !hasRewied"
+  *ngIf="user && user.userRole === 'USER' && !hasReviewed"
 >
   <h2>Add a Review</h2>
   <form (ngSubmit)="submitReview()">

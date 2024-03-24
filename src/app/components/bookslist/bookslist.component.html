@@ -1,0 +1,89 @@
+<div class="mb-3">
+  <div class="row d-flex justify-content-between mb-2 search-bar">
+    <div class="col-9">
+      <h3>Search through your list:</h3>
+    </div>
+    <div class="col-3 search">
+      <form class="d-flex mx-auto" role="search">
+        <input
+          class="form-control me-2"
+          type="search"
+          placeholder="Search by title"
+          aria-label="Search"
+          (input)="search($event)"
+        />
+        <div class="svg-container d-flex align-items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-search"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+            />
+          </svg>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="currentlyReading && currentlyReading.length > 0">
+  <div class="container">
+    <h2>Currently Reading Books</h2>
+    <div *ngFor="let currentlyReading of currentlyReading">
+      <div class="book d-flex align-items-center mt-2">
+        <img
+          src="{{ currentlyReading.cover }}"
+          alt="avatar"
+          class="rounded-circle avatar"
+        />
+        <h6 class="ms-2">{{ currentlyReading.title }}</h6>
+      </div>
+      <div class="details">
+        <h6>{{ currentlyReading.author }}</h6>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="toRead && toRead.length > 0">
+  <div class="container">
+    <h2>To Read Books</h2>
+    <div *ngFor="let toRead of toRead">
+      <div class="book d-flex align-items-center mt-2">
+        <img
+          src="{{ toRead.cover }}"
+          alt="avatar"
+          class="rounded-circle avatar"
+        />
+        <h6 class="ms-2">{{ toRead.title }}</h6>
+      </div>
+      <div class="details">
+        <h6>{{ toRead.author }}</h6>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="readBooks && readBooks.length > 0">
+  <div class="container">
+    <h2>Read Books</h2>
+    <div *ngFor="let readBooks of readBooks">
+      <div class="book d-flex align-items-center mt-2">
+        <img
+          src="{{ readBooks.cover }}"
+          alt="avatar"
+          class="rounded-circle avatar"
+        />
+        <h6 class="ms-2">{{ readBooks.title }}</h6>
+      </div>
+      <div class="details">
+        <h6>{{ readBooks.author }}</h6>
+      </div>
+    </div>
+  </div>
+</div>
