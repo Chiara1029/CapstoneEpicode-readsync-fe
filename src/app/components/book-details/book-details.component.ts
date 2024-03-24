@@ -227,7 +227,7 @@ export class BookDetailsComponent implements OnInit {
     console.log(existingUserBook?.id);
     console.log(this.book.id);
 
-    if (existingUserBook) {
+    if (existingUserBook && existingUserBook.user.id === this.user.id) {
       this.http
         .put(
           `http://localhost:3001/userBooks/${existingUserBook.id}`,
