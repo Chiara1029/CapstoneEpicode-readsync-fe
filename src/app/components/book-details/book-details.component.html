@@ -1,5 +1,5 @@
 <div *ngIf="book" class="d-flex">
-  <div class="container">
+  <div class="container book-container">
     <div class="row">
       <div class="d-sm-flex col-sm-12 col-lg-3">
         <img
@@ -14,11 +14,27 @@
         <p>{{ book.plot }}</p>
         <p>ISBN: {{ book.isbnCode }}</p>
         <p>Genre: {{ book.genre }}</p>
-        <select name="status" id="">
+        <hr />
+        <p>Do you want this book on your shelf?</p>
+        <select
+          name="status"
+          [(ngModel)]="bookStatus"
+          (change)="onSelectChange()"
+          *ngIf="user && user.userRole === 'USER'"
+        >
           <option value="READ">Read</option>
           <option value="TO_READ">To Read</option>
           <option value="CURRENTLY_READING">Currently Reading</option>
         </select>
+
+        <div
+          *ngIf="isLoggedIn && user && user.userRole === 'ADMIN'"
+          class="d-flex"
+        >
+          <button class="btn delete" (click)="delete(book)">Delete</button>
+
+          <button class="btn update" (click)="update(book)">Update</button>
+        </div>
       </div>
     </div>
   </div>
@@ -35,6 +51,7 @@
         id="reviewTitle"
         [(ngModel)]="newReview.title"
         name="title"
+        [disabled]="userReviewExists"
       />
     </div>
     <div class="form-group">
@@ -44,6 +61,7 @@
         id="reviewBody"
         [(ngModel)]="newReview.body"
         name="body"
+        [disabled]="userReviewExists"
       ></textarea>
     </div>
     <button type="submit" class="btn mt-2">Submit Review</button>

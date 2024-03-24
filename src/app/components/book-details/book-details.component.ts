@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Book } from '../../interfaces/book';
+import { Book, UserBook } from '../../interfaces/book';
 import { Review, ReviewResponse } from 'src/app/interfaces/review';
 import { UserResponse } from 'src/app/interfaces/user';
+import { AuthService } from 'src/app/services/auth.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-book-detail',
@@ -17,9 +19,21 @@ export class BookDetailsComponent implements OnInit {
   userRole: string = '';
   userId!: string;
   user!: UserResponse;
+  isLoggedIn!: boolean;
+  userReviewExists: boolean = false;
+  userBook: any = {};
+  bookStatus: string = '';
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {
+  constructor(
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private authSrv: AuthService,
+    private router: Router
+  ) {
     this.reviews = [];
+    this.authSrv.isLoggedIn.subscribe((res) => {
+      this.isLoggedIn = res;
+    });
   }
 
   ngOnInit(): void {
@@ -33,6 +47,9 @@ export class BookDetailsComponent implements OnInit {
       }
     });
     const userId = this.fetchUserId();
+    this.userReviewExists = this.reviews.some(
+      (review) => review.user.username === this.user.username
+    );
   }
 
   getBookDetails(isbnCode: string): void {
@@ -62,12 +79,10 @@ export class BookDetailsComponent implements OnInit {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
-
     const params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString())
       .set('sort', sort);
-
     this.http
       .get<ReviewResponse>(`http://localhost:3001/reviews/${isbnCode}`, {
         headers,
@@ -89,17 +104,14 @@ export class BookDetailsComponent implements OnInit {
       console.error('Token not found');
       return;
     }
-
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
-
     const reviewBody = {
       ...this.newReview,
       bookIsbn: this.book.isbnCode,
       userId: this.userId,
     };
-
     this.http
       .post('http://localhost:3001/reviews', reviewBody, { headers })
       .subscribe(
@@ -142,5 +154,60 @@ export class BookDetailsComponent implements OnInit {
           console.error('Error fetching user details:', error);
         }
       );
+  }
+
+  delete(book: any) {
+    const isbnCode = book.isbnCode;
+    const token = localStorage.getItem('token');
+    const headers = { Authorization: `Bearer ${token}` };
+    const confirmed = confirm('Are you sure?');
+    if (confirmed) {
+      this.http
+        .delete<any>(`http://localhost:3001/books/${isbnCode}`, { headers })
+        .subscribe(
+          () => {
+            console.log('The book has been successfully deleted.');
+            alert('The book has been successfully deleted.');
+            this.router.navigate(['/home']);
+          },
+          (error) => {
+            console.error('Error deleting this book:', error);
+          }
+        );
+    }
+  }
+
+  update(book: any) {}
+
+  createUserBook() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error('Token not found');
+      return;
+    }
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    const userBookBody = {
+      isbnCode: this.book.isbnCode,
+      userId: this.userId,
+      bookStatus: this.bookStatus,
+    };
+    this.http
+      .post('http://localhost:3001/userBooks', userBookBody, { headers })
+      .subscribe(
+        (response) => {
+          console.log(response);
+          alert('The book has been added to your list!');
+        },
+        (error) => {
+          console.error('Error:', error);
+        }
+      );
+  }
+
+  onSelectChange() {
+    console.log('Selected book status:', this.bookStatus);
+    this.createUserBook();
   }
 }
