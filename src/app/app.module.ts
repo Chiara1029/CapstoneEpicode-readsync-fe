@@ -13,6 +13,7 @@ import { UserComponent } from './components/user/user.component';
 import { BookDetailsComponent } from './components/book-details/book-details.component';
 import { CreateBookComponent } from './components/create-book/create-book.component';
 import { BookslistComponent } from './components/bookslist/bookslist.component';
+import { UserDialogComponent } from './components/user-dialog/user-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { BookslistComponent } from './components/bookslist/bookslist.component';
     BookDetailsComponent,
     CreateBookComponent,
     BookslistComponent,
+    UserDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +34,7 @@ import { BookslistComponent } from './components/bookslist/bookslist.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

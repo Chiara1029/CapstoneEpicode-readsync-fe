@@ -18,3 +18,10 @@ export interface UserResponse {
   avatar: string | null;
   userRole: string | null;
 }
+
+export interface UserUpdate {
+  username: string | null;
+  name: string | null;
+  lastName: string | null;
+  email: string | null;
+}

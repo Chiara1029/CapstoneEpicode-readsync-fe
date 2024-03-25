@@ -58,8 +58,23 @@
           Read: {{ numReadBooks }}
         </p>
         <hr />
-        <button class="btn delete" (click)="delete(user)">
+        <button class="btn delete mb-3" (click)="delete(user)">
           Delete Account
+        </button>
+        <button
+          (click)="openDialog()"
+          *ngIf="!showDialog"
+          class="btn update mb-3"
+        >
+          Update Profile
+        </button>
+        <app-user-dialog *ngIf="showDialog"></app-user-dialog>
+        <button
+          (click)="closeDialog()"
+          *ngIf="showDialog"
+          class="btn delete mt-3"
+        >
+          Cancel
         </button>
       </div>
     </div>

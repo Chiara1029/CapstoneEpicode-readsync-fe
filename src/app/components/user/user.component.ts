@@ -22,7 +22,7 @@ export class UserComponent implements OnInit {
   numReadBooks: number = 0;
   numToRead: number = 0;
   @ViewChild('fileInput') fileInput!: ElementRef;
-  hover!: boolean;
+  showDialog: boolean = false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -183,5 +183,13 @@ export class UserComponent implements OnInit {
           }
         );
     }
+  }
+
+  openDialog(): void {
+    this.showDialog = true;
+  }
+
+  closeDialog(): void {
+    this.showDialog = false;
   }
 }

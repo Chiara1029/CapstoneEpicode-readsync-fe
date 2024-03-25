@@ -118,7 +118,9 @@ $grad5: darken($darktan, 4);
 
 .delete {
   background-color: #500000;
-  margin-right: 2em;
-
+  color: var(--antique);
+}
+.update {
+  background-color: var(--gunmetal);
   color: var(--antique);
 }

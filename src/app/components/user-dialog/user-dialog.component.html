@@ -1,0 +1,90 @@
+<!-- <div class="modal" tabindex="-1" role="dialog" *ngIf="showDialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <h3>Update your profile:</h3>
+      <form
+        (submit)="onUpdateUserSubmit($event)"
+        [formGroup]="updateForm"
+        class="d-flex flex-column"
+      >
+        <input
+          type="text"
+          name="name"
+          formControlName="name"
+          placeholder="name"
+        />
+        <input
+          type="text"
+          name="lastName"
+          formControlName="lastName"
+          placeholder="last name"
+        />
+        <input
+          type="text"
+          name="username"
+          formControlName="username"
+          placeholder="username"
+        />
+        <input
+          type="email"
+          name="email"
+          formControlName="email"
+          placeholder="email"
+        />
+        <button
+          (click)="updateUser()"
+          class="d-block btn update"
+          [disabled]="updateForm.invalid"
+        >
+          Update
+        </button>
+      </form>
+    </div>
+  </div>
+</div> -->
+
+<div class="container mt-3">
+  <h3>Update your profile:</h3>
+  <form
+    (submit)="onUpdateUserSubmit($event)"
+    class="d-flex flex-column"
+    [formGroup]="updateForm"
+  >
+    <input
+      type="text"
+      name="name"
+      formControlName="name"
+      placeholder="name"
+      required
+    />
+    <input
+      type="text"
+      name="lastName"
+      formControlName="lastName"
+      placeholder="last name"
+      required
+    />
+    <input
+      type="text"
+      name="username"
+      formControlName="username"
+      placeholder="username"
+      required
+    />
+    <input
+      type="email"
+      name="email"
+      formControlName="email"
+      placeholder="email"
+      required
+    />
+    <button
+      (click)="updateUser()"
+      class="d-block btn update"
+      [disabled]="updateForm.invalid"
+      required
+    >
+      Update
+    </button>
+  </form>
+</div>
