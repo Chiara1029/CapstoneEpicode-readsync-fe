@@ -1,21 +1,21 @@
 <div *ngIf="book" class="d-flex">
   <div class="container book-container">
     <div class="row">
-      <div class="d-sm-flex col-sm-12 col-lg-3">
-        <img
-          [src]="book.cover"
-          alt="Book Cover"
-          class="justify-content-sm-center"
-        />
+      <div class="d-flex justify-content-center col-sm-12 col-md-12 col-lg-3">
+        <div class="book-cover-container d-flex">
+          <img [src]="book.cover" alt="Book Cover" class="book-cover" />
+        </div>
       </div>
-      <div class="col-sm-12 col-lg-9">
+      <div class="col-sm-12 col-md-12 col-lg-9">
         <h2>{{ book.title }}</h2>
         <h3>by {{ book.author }}</h3>
         <p>{{ book.plot }}</p>
         <p>ISBN: {{ book.isbnCode }}</p>
         <p>Genre: {{ book.genre }}</p>
         <hr />
-        <p>Do you want this book on your shelf?</p>
+        <p *ngIf="user && user.userRole === 'USER'">
+          Do you want this book on your shelf?
+        </p>
         <select
           name="status"
           [(ngModel)]="bookStatus"
@@ -29,12 +29,30 @@
 
         <div
           *ngIf="isLoggedIn && user && user.userRole === 'ADMIN'"
-          class="d-flex"
+          class="d-flex align-items-center align-content-center"
         >
-          <button class="btn delete" (click)="delete(book)">Delete</button>
+          <button class="btn delete" (click)="delete(book)" *ngIf="!showDialog">
+            Delete
+          </button>
 
-          <button class="btn update" (click)="update(book)">Update</button>
+          <button (click)="openDialog()" *ngIf="!showDialog" class="btn update">
+            Update
+          </button>
         </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div>
+          <app-book-dialog *ngIf="showDialog"></app-book-dialog>
+        </div>
+        <button
+          (click)="closeDialog()"
+          *ngIf="showDialog"
+          class="btn delete mt-3"
+        >
+          Cancel
+        </button>
       </div>
     </div>
   </div>

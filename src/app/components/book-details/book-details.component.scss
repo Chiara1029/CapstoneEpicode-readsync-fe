@@ -5,6 +5,21 @@
   color: var(--gunmetal);
 }
 
+.book-cover-container {
+  max-width: 400px;
+  @media (max-width: 980px) {
+    justify-content: center;
+    margin-bottom: 1em;
+  }
+}
+.book-cover {
+  width: 100%;
+  @media (max-width: 980px) {
+    max-width: 250px;
+    justify-content: center;
+  }
+}
+
 select,
 option {
   background-color: var(--gunmetal);

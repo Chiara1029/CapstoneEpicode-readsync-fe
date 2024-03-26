@@ -1,0 +1,25 @@
+<div class="container mt-3">
+  <h3>Update this book:</h3>
+  <form
+    (submit)="onUpdateBookSubmit($event)"
+    class="d-flex flex-column"
+    [formGroup]="updateForm"
+  >
+    <input type="text" placeholder="title" formControlName="title" />
+    <input type="text" placeholder="author" formControlName="author" />
+    <input type="text" placeholder="isbn code" formControlName="isbnCode" />
+    <textarea name="plot" placeholder="plot" formControlName="plot"></textarea>
+    <input type="text" placeholder="genre" formControlName="genre" />
+    <input type="text" placeholder="cover url" formControlName="cover" />
+    <div>
+      <button
+        (click)="updateBook()"
+        class="d-block btn update"
+        [disabled]="updateForm.invalid"
+        required
+      >
+        Update
+      </button>
+    </div>
+  </form>
+</div>

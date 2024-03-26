@@ -1,0 +1,24 @@
+input,
+textarea {
+  border-radius: 5px;
+  padding: 0.5em;
+  border-color: var(--tan);
+  border-style: none;
+  margin-bottom: 1em;
+}
+
+h3 {
+  color: var(--gunmetal);
+}
+
+.container {
+  background-color: var(--antique);
+  border-radius: 10px;
+  padding: 1em;
+}
+
+.update {
+  background-color: var(--gunmetal);
+  color: var(--antique);
+  margin-bottom: 0.5em;
+}

@@ -24,7 +24,7 @@ export class BookDetailsComponent implements OnInit {
   userBook: any = {};
   bookStatus: string = '';
   userBooks!: UserBook[];
-
+  showDialog: boolean = false;
   hasReviewed: boolean = false;
 
   constructor(
@@ -205,8 +205,6 @@ export class BookDetailsComponent implements OnInit {
     }
   }
 
-  update(book: any) {}
-
   createUserBook() {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -258,5 +256,13 @@ export class BookDetailsComponent implements OnInit {
   onSelectChange() {
     console.log('Selected book status:', this.bookStatus);
     this.createUserBook();
+  }
+
+  openDialog(): void {
+    this.showDialog = true;
+  }
+
+  closeDialog(): void {
+    this.showDialog = false;
   }
 }
