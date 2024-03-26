@@ -76,7 +76,8 @@
       color: var(--antique);
     }
 
-    .inputs input {
+    .inputs input,
+    textarea {
       width: 100%;
       padding: 10px;
       margin-top: 15px;

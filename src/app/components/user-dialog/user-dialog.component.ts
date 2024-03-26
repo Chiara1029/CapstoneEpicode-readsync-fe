@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserResponse, UserUpdate } from 'src/app/interfaces/user';
 
 @Component({
@@ -16,6 +16,7 @@ export class UserDialogComponent implements OnInit {
   updateForm!: FormGroup;
 
   constructor(
+    private route: ActivatedRoute,
     private http: HttpClient,
     private fb: FormBuilder,
     private router: Router
@@ -54,6 +55,12 @@ export class UserDialogComponent implements OnInit {
       .subscribe(
         (response) => {
           this.user = response;
+          this.updateForm.patchValue({
+            name: this.user.name,
+            lastName: this.user.lastName,
+            email: this.user.email,
+            username: this.user.username,
+          });
         },
         (error) => {
           console.error('Error fetching user details:', error);
@@ -62,6 +69,7 @@ export class UserDialogComponent implements OnInit {
   }
 
   onUpdateUserSubmit(event: Event): void {
+    event.preventDefault();
     this.updateUser();
     this.closeDialog();
   }
@@ -80,7 +88,6 @@ export class UserDialogComponent implements OnInit {
       .subscribe(
         (response) => {
           this.user = response;
-          this.router.navigate(['/userprofile']);
           alert('Your profile has been updated!');
         },
         (error) => {
