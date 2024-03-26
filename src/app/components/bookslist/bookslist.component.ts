@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
 import { Book, UserBook } from 'src/app/interfaces/book';
 import { UserResponse } from 'src/app/interfaces/user';
@@ -16,8 +16,13 @@ export class BookslistComponent implements OnInit {
   currentlyReading!: Book[];
   readBooks!: Book[];
   toRead!: Book[];
+  userBook!: UserBook[];
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) {}
+  constructor(
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.fetchUserId();
@@ -30,6 +35,7 @@ export class BookslistComponent implements OnInit {
       (response) => {
         this.userId = response.toString();
         this.fetchUserDetails();
+        this.getUserBooks();
         this.route.params.subscribe((params) => {
           const section = params['status'];
           if (section === 'currentlyReading') {
@@ -126,6 +132,51 @@ export class BookslistComponent implements OnInit {
           book.title.toLowerCase().includes(searchTerm)
         );
       }
+    }
+  }
+
+  getUserBooks() {
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    };
+    this.http
+      .get<UserBook[]>(`http://localhost:3001/userBooks/getAll`, {
+        headers,
+      })
+      .pipe(map((response) => response.map((userBook) => userBook)))
+      .subscribe((books) => {
+        this.userBook = books;
+        console.log(this.userBook);
+      });
+  }
+
+  delete(bookId: number) {
+    const userBookToDelete = this.userBook.find(
+      (userBook) => userBook.book.id === bookId
+    );
+    if (!userBookToDelete) {
+      console.error('UserBook not found for the given Book ID.');
+      return;
+    }
+    const userBookId = userBookToDelete.id;
+    const token = localStorage.getItem('token');
+    const headers = { Authorization: `Bearer ${token}` };
+    const confirmed = confirm('Are you sure?');
+    if (confirmed && this.userId === userBookToDelete.user.id) {
+      this.http
+        .delete<any>(`http://localhost:3001/userBooks/${userBookId}`, {
+          headers,
+        })
+        .subscribe(
+          () => {
+            console.log('The book has been successfully deleted.');
+            alert('The book has been successfully deleted.');
+            this.router.navigate(['/userprofile']);
+          },
+          (error) => {
+            console.error('Error deleting this book:', error);
+          }
+        );
     }
   }
 }

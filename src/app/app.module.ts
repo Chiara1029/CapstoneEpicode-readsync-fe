@@ -14,6 +14,7 @@ import { BookDetailsComponent } from './components/book-details/book-details.com
 import { CreateBookComponent } from './components/create-book/create-book.component';
 import { BookslistComponent } from './components/bookslist/bookslist.component';
 import { UserDialogComponent } from './components/user-dialog/user-dialog.component';
+import { BookDialogComponent } from './components/book-dialog/book-dialog.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { UserDialogComponent } from './components/user-dialog/user-dialog.compon
     CreateBookComponent,
     BookslistComponent,
     UserDialogComponent,
+    BookDialogComponent,
   ],
   imports: [
     BrowserModule,
