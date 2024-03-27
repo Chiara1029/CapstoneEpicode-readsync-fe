@@ -19,7 +19,12 @@
           <div *ngIf="user && user.username" class="welcome">
             <h2>Welcome {{ user.username }}</h2>
           </div>
-          <h5 class="card-title">You're reading:</h5>
+          <h5
+            class="card-title"
+            *ngIf="currentlyReading && currentlyReading.length > 0"
+          >
+            You're reading:
+          </h5>
           <p class="card-text">
             {{ currentlyReading[0].title }} by {{ currentlyReading[0].author }}
           </p>

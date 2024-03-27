@@ -55,6 +55,70 @@
         </button>
       </div>
     </div>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="media">
+            <div *ngIf="movies && movies.length > 0" class="col-lg-6">
+              <h5>Movies</h5>
+              <div class="row">
+                <div *ngFor="let movie of movies" class="col-lg-6 col-md-12">
+                  <div class="imdb_card mb-3">
+                    <div class="movie_poster">
+                      <img src="{{ movie.poster }}" alt="poster" />
+                      <div class="movie_label">
+                        <h3>{{ movie.title }}</h3>
+                      </div>
+                    </div>
+                    <div class="movie_content">
+                      <div class="mov_specs">
+                        <p>
+                          {{ movie.year }} | {{ movie.distributor }} |
+                          {{ movie.genre }}
+                        </p>
+                      </div>
+                      <div class="mov_description">
+                        <h3>{{ movie.title }}</h3>
+                        <p>{{ movie.plot }}</p>
+                        <p><strong>Director:</strong> {{ movie.director }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="tvShows && tvShows.length > 0" class="col-lg-6 mt-2">
+              <h5>Tv Shows</h5>
+              <div class="row">
+                <div *ngFor="let tvShow of tvShows" class="col-lg-6 col-md-12">
+                  <div class="imdb_card mb-3">
+                    <div class="movie_poster">
+                      <img src="{{ tvShow.poster }}" alt="poster" />
+                      <div class="movie_label">
+                        <h3>{{ tvShow.title }}</h3>
+                      </div>
+                    </div>
+                    <div class="movie_content">
+                      <div class="mov_specs">
+                        <p>
+                          {{ tvShow.year }} | {{ tvShow.network }} |
+                          {{ tvShow.genre }}
+                        </p>
+                      </div>
+                      <div class="mov_description">
+                        <h3>{{ tvShow.title }}</h3>
+                        <p>{{ tvShow.plot }}</p>
+                        <p><strong>Seasons:</strong> {{ tvShow.seasons }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

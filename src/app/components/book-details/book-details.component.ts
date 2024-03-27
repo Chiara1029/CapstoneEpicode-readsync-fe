@@ -6,6 +6,8 @@ import { Review, ReviewResponse } from 'src/app/interfaces/review';
 import { UserResponse } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { FormsModule } from '@angular/forms';
+import { Movie, MovieResp } from 'src/app/interfaces/movie';
+import { TvShow, TvShowResp } from 'src/app/interfaces/tvshow';
 
 @Component({
   selector: 'app-book-detail',
@@ -26,6 +28,8 @@ export class BookDetailsComponent implements OnInit {
   userBooks!: UserBook[];
   showDialog: boolean = false;
   hasReviewed: boolean = false;
+  movies!: MovieResp[];
+  tvShows!: TvShowResp[];
 
   constructor(
     private route: ActivatedRoute,
@@ -82,6 +86,8 @@ export class BookDetailsComponent implements OnInit {
       .subscribe(
         (book) => {
           this.book = book;
+          this.getMovies();
+          this.getTvShows();
         },
         (error) => {
           console.error('Error fetching book details:', error);
@@ -264,5 +270,45 @@ export class BookDetailsComponent implements OnInit {
 
   closeDialog(): void {
     this.showDialog = false;
+  }
+
+  getMovies() {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    this.http
+      .get<MovieResp[]>(`http://localhost:3001/movies/${this.book.isbnCode}`, {
+        headers,
+      })
+      .subscribe(
+        (movies) => {
+          this.movies = movies;
+        },
+        (error) => {
+          console.error('Error fetching movie details:', error);
+        }
+      );
+  }
+
+  getTvShows() {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    this.http
+      .get<TvShowResp[]>(
+        `http://localhost:3001/tvShows/${this.book.isbnCode}`,
+        { headers }
+      )
+      .subscribe(
+        (tvShows) => {
+          this.tvShows = tvShows;
+        },
+        (error) => {
+          console.error('Error fetching TV show details:', error);
+        }
+      );
   }
 }

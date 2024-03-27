@@ -14,6 +14,7 @@
 }
 .book-cover {
   width: 100%;
+  border-radius: 4px;
   @media (max-width: 980px) {
     max-width: 250px;
     justify-content: center;
@@ -59,4 +60,89 @@ textarea {
 .delete {
   background-color: #500000;
   margin-right: 2em;
+}
+
+.media {
+  h5 {
+    color: var(--gunmetal);
+  }
+}
+
+.imdb_card {
+  max-width: 100%;
+  height: 500px;
+  background: var(--antique);
+  border-radius: 2px;
+  color: var(--gunmetal);
+  position: relative;
+  border-radius: 10px;
+}
+
+.movie_poster {
+  max-width: 100%;
+  height: 300px;
+  position: relative;
+}
+
+.movie_poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  border-radius: 10px 10px 0 10px;
+}
+
+.movie_label {
+  position: absolute;
+  bottom: -37.5px;
+  background: var(--gunmetal);
+  color: var(--antique);
+  width: 80%;
+  height: 75px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 30px;
+  border-radius: 0 6px 6px 0;
+}
+
+.movie_label h3 {
+  font-size: 20px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.movie_content {
+  width: 100%;
+  height: calc(100% - 350px);
+  padding: 45px 40px 3px 30px;
+}
+
+.mov_specs {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+}
+.mov_specs {
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.mov_description {
+  font-size: 0.7rem;
+  font-weight: 300;
+  p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  h3 {
+    font-size: 16px;
+    margin-top: 6px;
+  }
 }
