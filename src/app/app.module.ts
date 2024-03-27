@@ -16,6 +16,8 @@ import { BookslistComponent } from './components/bookslist/bookslist.component';
 import { UserDialogComponent } from './components/user-dialog/user-dialog.component';
 import { BookDialogComponent } from './components/book-dialog/book-dialog.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { CreateMovieComponent } from './components/create-movie/create-movie.component';
+import { CreateTvshowComponent } from './components/create-tvshow/create-tvshow.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { FooterComponent } from './components/footer/footer.component';
     UserDialogComponent,
     BookDialogComponent,
     FooterComponent,
+    CreateMovieComponent,
+    CreateTvshowComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,52 @@
+<div class="main">
+  <div class="box-form">
+    <div class="left">
+      <div class="overlay">
+        <h3>Create a New Movie</h3>
+        <p>Hi ADMIN! Spread the Verb and create a new movie.</p>
+      </div>
+    </div>
+
+    <div class="right d-flex flex-column">
+      <h5>Create a Movie</h5>
+
+      <form [formGroup]="movieForm" (ngSubmit)="createMovie()">
+        <div class="inputs">
+          <input type="text" placeholder="title" formControlName="title" />
+          <input type="number" placeholder="year" formControlName="year" />
+          <input
+            type="text"
+            placeholder="isbn code"
+            formControlName="bookIsbn"
+          />
+          <textarea
+            name="plot"
+            placeholder="plot"
+            formControlName="plot"
+          ></textarea>
+          <input type="text" placeholder="genre" formControlName="genre" />
+          <input
+            type="text"
+            placeholder="poster url"
+            formControlName="poster"
+          />
+          <input
+            type="text"
+            placeholder="director"
+            formControlName="director"
+          />
+          <input
+            type="text"
+            placeholder="distributor"
+            formControlName="distributor"
+          />
+        </div>
+        <div *ngIf="error" class="error-message">{{ error }}</div>
+
+        <button type="submit" class="btn mt-3" [disabled]="movieForm.invalid">
+          Create Book
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

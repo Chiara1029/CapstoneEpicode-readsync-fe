@@ -3,9 +3,13 @@ footer {
   color: var(--antique);
   padding: 0.2em;
   font-size: 12px;
+  height: 1.5rem;
 
   a {
     color: var(--antique);
     text-decoration: none;
+  }
+  p {
+    margin-bottom: 0;
   }
 }

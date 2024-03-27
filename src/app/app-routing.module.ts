@@ -7,6 +7,8 @@ import { UserComponent } from './components/user/user.component';
 import { BookDetailsComponent } from './components/book-details/book-details.component';
 import { CreateBookComponent } from './components/create-book/create-book.component';
 import { BookslistComponent } from './components/bookslist/bookslist.component';
+import { CreateMovieComponent } from './components/create-movie/create-movie.component';
+import { CreateTvshowComponent } from './components/create-tvshow/create-tvshow.component';
 
 const routes: Routes = [
   {
@@ -36,6 +38,14 @@ const routes: Routes = [
   {
     path: 'bookslist/:status',
     component: BookslistComponent,
+  },
+  {
+    path: 'createmovie',
+    component: CreateMovieComponent,
+  },
+  {
+    path: 'createtvshow',
+    component: CreateTvshowComponent,
   },
 ];
 
