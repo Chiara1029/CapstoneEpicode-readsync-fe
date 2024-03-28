@@ -43,7 +43,14 @@ svg {
 
 .delete {
   background-color: #500000;
-  margin-right: 2em;
+  margin-right: 1em;
+  svg {
+    color: var(--antique);
+  }
+}
+
+.update {
+  background-color: var(--gunmetal);
   svg {
     color: var(--antique);
   }
