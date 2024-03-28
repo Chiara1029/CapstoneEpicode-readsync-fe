@@ -26,7 +26,6 @@ export class CreateBookComponent implements OnInit {
     private http: HttpClient
   ) {
     this.errorSrv.error.subscribe((res) => {
-      console.log(res);
       this.error = res;
     });
   }
@@ -71,7 +70,6 @@ export class CreateBookComponent implements OnInit {
         .post('http://localhost:3001/books', book, { headers: headers })
         .subscribe(
           (response) => {
-            console.log('Book created successfully:', response);
             this.router.navigate(['/home']);
           },
           (error) => {

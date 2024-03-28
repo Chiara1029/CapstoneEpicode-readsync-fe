@@ -21,7 +21,6 @@ export class CreateMovieComponent implements OnInit {
     private http: HttpClient
   ) {
     this.errorSrv.error.subscribe((res) => {
-      console.log(res);
       this.error = res;
     });
   }
@@ -72,7 +71,6 @@ export class CreateMovieComponent implements OnInit {
         .post('http://localhost:3001/movies', movie, { headers: headers })
         .subscribe(
           (response) => {
-            console.log('Movie created successfully:', response);
             this.router.navigate(['/home']);
           },
           (error) => {

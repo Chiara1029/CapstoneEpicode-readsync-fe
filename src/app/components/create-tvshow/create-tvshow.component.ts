@@ -21,7 +21,6 @@ export class CreateTvshowComponent implements OnInit {
     private http: HttpClient
   ) {
     this.errorSrv.error.subscribe((res) => {
-      console.log(res);
       this.error = res;
     });
   }
@@ -72,7 +71,6 @@ export class CreateTvshowComponent implements OnInit {
         .post('http://localhost:3001/tvShows', tvShow, { headers: headers })
         .subscribe(
           (response) => {
-            console.log('Tv Show created successfully:', response);
             this.router.navigate(['/home']);
           },
           (error) => {

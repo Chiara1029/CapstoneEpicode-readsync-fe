@@ -2,9 +2,10 @@ import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User, UserResponse } from 'src/app/interfaces/user';
 import { Book, UserBook } from 'src/app/interfaces/book';
-import { map } from 'rxjs';
+import { Subscription, map } from 'rxjs';
 import { Review } from 'src/app/interfaces/review';
 import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-user',
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
 })
 export class UserComponent implements OnInit {
   userId!: string;
-  user!: UserResponse;
+  user!: UserResponse | null;
   currentlyReading!: Book[];
   readBooks!: Book[];
   toRead!: Book[];
@@ -23,11 +24,23 @@ export class UserComponent implements OnInit {
   numToRead: number = 0;
   @ViewChild('fileInput') fileInput!: ElementRef;
   showDialog: boolean = false;
+  userSubscription!: Subscription;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private userSrv: UserService
+  ) {}
 
   ngOnInit(): void {
     this.fetchUserId();
+    this.userSubscription = this.userSrv.user$.subscribe((user) => {
+      this.user = user;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
   }
 
   fetchUserId() {
@@ -36,7 +49,7 @@ export class UserComponent implements OnInit {
     this.http.get<any>('http://localhost:3001/users/me', { headers }).subscribe(
       (response) => {
         this.userId = response.toString();
-        this.fetchUserDetails();
+        this.userSrv.fetchUserDetails(this.userId);
         this.getCurrentlyReadingBooks();
         this.getReadBooks();
         this.getToReadBooks();
@@ -46,22 +59,6 @@ export class UserComponent implements OnInit {
         console.error('Error fetching user id:', error);
       }
     );
-  }
-
-  fetchUserDetails() {
-    const headers = {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    };
-    this.http
-      .get<any>(`http://localhost:3001/users/${this.userId}`, { headers })
-      .subscribe(
-        (response) => {
-          this.user = response;
-        },
-        (error) => {
-          console.error('Error fetching user details:', error);
-        }
-      );
   }
 
   getCurrentlyReadingBooks() {
@@ -148,7 +145,7 @@ export class UserComponent implements OnInit {
       )
       .subscribe(
         (response) => {
-          this.user.avatar = response.avatar;
+          this.user!.avatar = response.avatar;
         },
         (error) => {
           console.error('Error uploading avatar:', error);
@@ -174,7 +171,6 @@ export class UserComponent implements OnInit {
         .delete<any>(`http://localhost:3001/users/${userId}`, { headers })
         .subscribe(
           () => {
-            console.log('The user has been successfully deleted.');
             alert('The user has been successfully deleted.');
             this.router.navigate(['']);
           },

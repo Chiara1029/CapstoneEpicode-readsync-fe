@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { UserResponse, UserUpdate } from 'src/app/interfaces/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-user-dialog',
@@ -10,16 +12,18 @@ import { UserResponse, UserUpdate } from 'src/app/interfaces/user';
   styleUrls: ['./user-dialog.component.scss'],
 })
 export class UserDialogComponent implements OnInit {
-  user!: UserResponse;
+  user!: UserResponse | null;
   userId!: string;
   showDialog: boolean = false;
   updateForm!: FormGroup;
+  userSubscription!: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private userSrv: UserService
   ) {}
 
   ngOnInit(): void {
@@ -30,6 +34,19 @@ export class UserDialogComponent implements OnInit {
       email: ['', [Validators.email, Validators.required]],
       username: ['', Validators.required],
     });
+    this.userSubscription = this.userSrv.user$.subscribe((user) => {
+      this.user = user;
+      this.updateForm.patchValue({
+        name: this.user!.name,
+        lastName: this.user!.lastName,
+        email: this.user!.email,
+        username: this.user!.username,
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
   }
 
   fetchUserId() {
@@ -38,34 +55,12 @@ export class UserDialogComponent implements OnInit {
     this.http.get<any>('http://localhost:3001/users/me', { headers }).subscribe(
       (response) => {
         this.userId = response.toString();
-        this.fetchUserDetails();
+        this.userSrv.fetchUserDetails(this.userId);
       },
       (error) => {
         console.error('Error fetching user id:', error);
       }
     );
-  }
-
-  fetchUserDetails() {
-    const headers = {
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
-    };
-    this.http
-      .get<any>(`http://localhost:3001/users/${this.userId}`, { headers })
-      .subscribe(
-        (response) => {
-          this.user = response;
-          this.updateForm.patchValue({
-            name: this.user.name,
-            lastName: this.user.lastName,
-            email: this.user.email,
-            username: this.user.username,
-          });
-        },
-        (error) => {
-          console.error('Error fetching user details:', error);
-        }
-      );
   }
 
   onUpdateUserSubmit(event: Event): void {
@@ -87,7 +82,7 @@ export class UserDialogComponent implements OnInit {
       )
       .subscribe(
         (response) => {
-          this.user = response;
+          this.userSrv.fetchUserDetails(this.userId);
           alert('Your profile has been updated!');
         },
         (error) => {

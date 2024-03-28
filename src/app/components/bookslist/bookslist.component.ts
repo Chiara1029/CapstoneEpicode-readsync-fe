@@ -146,7 +146,6 @@ export class BookslistComponent implements OnInit {
       .pipe(map((response) => response.map((userBook) => userBook)))
       .subscribe((books) => {
         this.userBook = books;
-        console.log(this.userBook);
       });
   }
 
@@ -169,7 +168,6 @@ export class BookslistComponent implements OnInit {
         })
         .subscribe(
           () => {
-            console.log('The book has been successfully deleted.');
             alert('The book has been successfully deleted.');
             this.router.navigate(['/userprofile']);
           },

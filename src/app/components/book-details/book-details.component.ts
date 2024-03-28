@@ -5,9 +5,8 @@ import { Book, UserBook, UserBookResponse } from '../../interfaces/book';
 import { Review, ReviewResponse } from 'src/app/interfaces/review';
 import { UserResponse } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { FormsModule } from '@angular/forms';
-import { Movie, MovieResp } from 'src/app/interfaces/movie';
-import { TvShow, TvShowResp } from 'src/app/interfaces/tvshow';
+import { MovieResp } from 'src/app/interfaces/movie';
+import { TvShowResp } from 'src/app/interfaces/tvshow';
 
 @Component({
   selector: 'app-book-detail',
@@ -200,7 +199,6 @@ export class BookDetailsComponent implements OnInit {
         .delete<any>(`http://localhost:3001/books/${isbnCode}`, { headers })
         .subscribe(
           () => {
-            console.log('The book has been successfully deleted.');
             alert('The book has been successfully deleted.');
             this.router.navigate(['/home']);
           },
@@ -237,7 +235,6 @@ export class BookDetailsComponent implements OnInit {
         )
         .subscribe(
           () => {
-            console.log('The book has been successfully updated in your list.');
             alert('The book has been successfully updated in your list.');
           },
           (error) => {
@@ -249,7 +246,6 @@ export class BookDetailsComponent implements OnInit {
         .post('http://localhost:3001/userBooks', userBookBody, { headers })
         .subscribe(
           (response) => {
-            console.log(response);
             alert('The book has been added to your list!');
           },
           (error) => {
@@ -260,7 +256,6 @@ export class BookDetailsComponent implements OnInit {
   }
 
   onSelectChange() {
-    console.log('Selected book status:', this.bookStatus);
     this.createUserBook();
   }
 

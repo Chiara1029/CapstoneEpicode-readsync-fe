@@ -86,6 +86,7 @@ export class BookDialogComponent implements OnInit {
         (response) => {
           this.book = response;
           alert('The book has been updated!');
+          this.router.navigate(['/home']);
         },
         (error) => {
           console.error('Errore:', error);
