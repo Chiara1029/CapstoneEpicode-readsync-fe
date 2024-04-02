@@ -71,6 +71,7 @@ export class CreateTvshowComponent implements OnInit {
         .post('http://localhost:3001/tvShows', tvShow, { headers: headers })
         .subscribe(
           (response) => {
+            alert('Tv Show created!');
             this.router.navigate(['/home']);
           },
           (error) => {

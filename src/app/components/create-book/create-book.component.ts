@@ -70,6 +70,7 @@ export class CreateBookComponent implements OnInit {
         .post('http://localhost:3001/books', book, { headers: headers })
         .subscribe(
           (response) => {
+            alert('Book created!');
             this.router.navigate(['/home']);
           },
           (error) => {

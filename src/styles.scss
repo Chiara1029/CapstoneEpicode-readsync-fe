@@ -10,3 +10,14 @@
 body {
   background-color: var(--antique);
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--tan);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--antique);
+  border-radius: 5px;
+}

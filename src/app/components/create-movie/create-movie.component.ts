@@ -71,6 +71,7 @@ export class CreateMovieComponent implements OnInit {
         .post('http://localhost:3001/movies', movie, { headers: headers })
         .subscribe(
           (response) => {
+            alert('Movie created!');
             this.router.navigate(['/home']);
           },
           (error) => {

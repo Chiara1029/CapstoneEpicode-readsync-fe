@@ -32,11 +32,10 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid) {
       return;
     }
-
     const userData = this.registerForm.value;
-
     this.authSrv.signUp(userData).subscribe({
       next: () => {
+        alert('Account created. Welcome aboard!');
         this.router.navigate(['/']);
       },
       error: (err) => {
