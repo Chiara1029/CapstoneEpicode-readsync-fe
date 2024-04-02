@@ -41,9 +41,20 @@ export class HomeComponent implements OnInit {
   }
 
   loadBooks() {
-    this.bookService.getAllBooks(0, 10, 'id').subscribe(
-      (data) => {
-        this.books = data.content;
+    //GET with Pagination
+    // this.bookService.getAllBooks(0, 10, 'id').subscribe(
+    //   (data) => {
+    //     this.books = data.content;
+    //   },
+    //   (error) => {
+    //     console.error('Error fetching books:', error);
+    //   }
+    // );
+
+    //Simple GET
+    this.bookService.getBooks().subscribe(
+      (books) => {
+        this.books = books;
       },
       (error) => {
         console.error('Error fetching books:', error);

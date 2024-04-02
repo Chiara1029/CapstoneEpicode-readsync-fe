@@ -64,3 +64,11 @@
 svg {
   color: var(--gunmetal);
 }
+
+.plot {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

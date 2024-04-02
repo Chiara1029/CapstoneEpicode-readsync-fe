@@ -30,4 +30,13 @@ export class BookService {
     );
     return this.http.get<Page<Book>>(url, { headers });
   }
+
+  getBooks() {
+    const headers = {
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
+    };
+    return this.http.get<Book[]>(`http://localhost:3001/books/getAll`, {
+      headers,
+    });
+  }
 }

@@ -1,3 +1,14 @@
+::-webkit-scrollbar {
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--gunmetal);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--tan);
+  border-radius: 5px;
+}
+
 .userside {
   background-color: var(--tan);
   color: var(--gunmetal);

@@ -78,7 +78,7 @@
         </button>
       </div>
     </div>
-    <div class="col-sm-12 col-md-8">
+    <div class="col-sm-12 col-md-8 p-3">
       <div class="mt-2" *ngIf="currentlyReading && currentlyReading.length > 0">
         <h5>Currently Reading</h5>
         <div class="bookshelf--frame d-flex flex-nowrap">
@@ -124,7 +124,7 @@
   </div>
 </div>
 
-<div *ngIf="reviews && reviews.length > 0" class="container mt-5">
+<div *ngIf="reviews && reviews.length > 0" class="container mt-5 p-3">
   <div>
     <h2>Your Reviews</h2>
     <div *ngFor="let review of reviews">

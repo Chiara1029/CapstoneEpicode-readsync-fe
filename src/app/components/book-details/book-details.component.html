@@ -6,7 +6,7 @@
           <img [src]="book.cover" alt="Book Cover" class="book-cover" />
         </div>
       </div>
-      <div class="col-sm-12 col-md-12 col-lg-9">
+      <div class="col-sm-12 col-md-12 col-lg-9 book-details">
         <h2>{{ book.title }}</h2>
         <h3>by {{ book.author }}</h3>
         <p>{{ book.plot }}</p>
@@ -59,10 +59,10 @@
       <div class="row">
         <div class="col">
           <div class="media">
-            <div *ngIf="movies && movies.length > 0" class="col-lg-6">
+            <div *ngIf="movies && movies.length > 0" class="col-lg-12">
               <h5>Movies</h5>
               <div class="row">
-                <div *ngFor="let movie of movies" class="col-lg-6 col-md-12">
+                <div *ngFor="let movie of movies" class="col-md-12 col-lg-3">
                   <div class="imdb_card mb-3">
                     <div class="movie_poster">
                       <img src="{{ movie.poster }}" alt="poster" />
@@ -71,10 +71,10 @@
                       </div>
                     </div>
                     <div class="movie_content">
-                      <div class="mov_specs">
+                      <div class="mov_specs flex-column">
+                        <p>{{ movie.year }} | {{ movie.genre }}</p>
                         <p>
-                          {{ movie.year }} | {{ movie.distributor }} |
-                          {{ movie.genre }}
+                          {{ movie.distributor }}
                         </p>
                       </div>
                       <div class="mov_description">
@@ -87,10 +87,10 @@
                 </div>
               </div>
             </div>
-            <div *ngIf="tvShows && tvShows.length > 0" class="col-lg-6 mt-2">
+            <div *ngIf="tvShows && tvShows.length > 0" class="col-lg-12 mt-2">
               <h5>Tv Shows</h5>
               <div class="row">
-                <div *ngFor="let tvShow of tvShows" class="col-lg-6 col-md-12">
+                <div *ngFor="let tvShow of tvShows" class="col-md-12 col-lg-3">
                   <div class="imdb_card mb-3">
                     <div class="movie_poster">
                       <img src="{{ tvShow.poster }}" alt="poster" />
@@ -99,10 +99,10 @@
                       </div>
                     </div>
                     <div class="movie_content">
-                      <div class="mov_specs">
+                      <div class="mov_specs flex-column">
+                        <p>{{ tvShow.year }} | {{ tvShow.genre }}</p>
                         <p>
-                          {{ tvShow.year }} | {{ tvShow.network }} |
-                          {{ tvShow.genre }}
+                          {{ tvShow.network }}
                         </p>
                       </div>
                       <div class="mov_description">
